@@ -1,5 +1,9 @@
 # Delete these rules if you don't care about matching.
 
+gfx/pokemon/jynx/front.animated.2bpp.lz.bin:
+# gfx/pokemon/quagsire/front.animated.2bpp.lz: LZFLAGS += --method 0
+# gfx/pokemon/hitmonchan/front.animated.2bpp.lz: LZFLAGS += --method 0
+
 %.lz: LZFLAGS = --compressor multipass
 
 gfx/battle_anims/%.lz: LZFLAGS += --method 2 --align 4

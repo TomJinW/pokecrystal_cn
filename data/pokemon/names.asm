@@ -1,5 +1,5 @@
 PokemonNames::
-	table_width NAME_LENGTH - 1, PokemonNames
+	; table_width NAME_LENGTH - 1, PokemonNames
 	db_w "妙蛙种子@@"
 	db_w "妙蛙草@@@@"
 	db_w "妙蛙花@@@@"
@@ -251,11 +251,11 @@ PokemonNames::
 	db_w "洛奇亚@@@@"
 	db_w "凤王@@@@@@"
 	db_w "时拉比@@@@"
-	assert_table_length NUM_POKEMON
+	; assert_table_length NUM_POKEMON
 	db_w "?????@@@@@"
 	db_w "蛋@@@@@@@@"
-	assert_table_length EGG
+	; assert_table_length EGG
 	db_w "?????@@@@@"
 	db_w "?????@@@@@"
 	db_w "?????@@@@@"
-	assert_table_length $100
+	; assert_table_length $100

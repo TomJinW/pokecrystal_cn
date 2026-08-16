@@ -284,7 +284,7 @@ PlayersPCMenuData:
 .WithdrawItem: db_w "取出道具@"
 .DepositItem:  db_w "寄放道具@"
 .TossItem:     db_w "丢弃道具@"
-.MailBox:      db_w "邮箱@"
+.MailBox:      db_w "信箱@"
 .Decoration:   db_w "家具@"
 .TurnOff:      db_w "关机@"
 .LogOff:       db_w "退出@"

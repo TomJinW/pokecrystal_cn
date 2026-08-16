@@ -180,6 +180,10 @@ CyndaquilPokeBallScript:
 	waitsfx
 	promptbutton
 	givepoke CYNDAQUIL, 5, BERRY
+	IF DEF(_DEBUG)
+	givepoke MEW, 99, BERRY
+	givepoke MEW, 99, BERRY
+	ENDC
 	closetext
 	readvar VAR_FACING
 	ifequal RIGHT, ElmDirectionsScript
@@ -210,6 +214,10 @@ TotodilePokeBallScript:
 	waitsfx
 	promptbutton
 	givepoke TOTODILE, 5, BERRY
+	IF DEF(_DEBUG)
+	givepoke MEW, 99, BERRY
+	givepoke MEW, 99, BERRY
+	ENDC
 	closetext
 	applymovement PLAYER, AfterTotodileMovement
 	sjump ElmDirectionsScript
@@ -238,6 +246,10 @@ ChikoritaPokeBallScript:
 	waitsfx
 	promptbutton
 	givepoke CHIKORITA, 5, BERRY
+	IF DEF(_DEBUG)
+	givepoke MEW, 99, BERRY
+	givepoke MEW, 99, BERRY
+	ENDC
 	closetext
 	applymovement PLAYER, AfterChikoritaMovement
 	sjump ElmDirectionsScript

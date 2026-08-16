@@ -25,6 +25,9 @@ CheckForMobileBattleRules:
 	text_end
 
 _CheckForBattleTowerRules:
+	IF DEF(_DEBUG)
+	ret
+	ENDC
 	ld hl, wStringBuffer2
 	ld [hl], "3"
 	inc hl

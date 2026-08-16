@@ -1711,6 +1711,17 @@ GetFacingTileCoord::
 	dw wTileRight
 
 GetCoordTileCollision::
+IF DEF(_DEBUG) 
+	push af
+	ld a, [wWalkThroughWalls]
+	and a
+	jr z, .normal
+	pop af
+	ld a, 0
+	ret
+.normal
+	pop af
+ENDC
 ; Get the collision byte for tile d, e
 	call GetBlockLocation
 	ld a, [hl]

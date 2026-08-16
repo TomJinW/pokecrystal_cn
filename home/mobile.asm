@@ -296,3 +296,43 @@ Function3f9f::
 	dec c
 	jr nz, .row
 	ret
+
+DebugPressedOrHeldB::
+IF DEF(_DEBUG)
+	ldh a, [hJoyDown]
+	bit B_BUTTON_F, a
+	ret nz
+	ldh a, [hJoyPressed]
+	bit B_BUTTON_F, a
+ENDC
+	ret
+
+DebugPressedOrHeldUP::
+IF DEF(_DEBUG)
+	ldh a, [hJoyDown]
+	bit D_UP_F, a
+	ret nz
+	ldh a, [hJoyPressed]
+	bit D_UP_F, a
+	ret
+ENDC
+
+IF DEF(_DEBUG) 
+InstantDie::
+	push af
+	push hl
+	; ld a, [wOptions]
+	; and $80 ; mask other bits
+	; cp $80
+	; jr nz, .skipDying
+	call DebugPressedOrHeldUP
+	jr z, .skipDying
+	ld hl, wEnemyMonHP
+	ld a, 0
+	ld [hli],a
+	ld [hl],a
+.skipDying
+	pop af
+	pop hl
+	ret
+ENDC

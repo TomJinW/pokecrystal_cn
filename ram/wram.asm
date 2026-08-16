@@ -1869,6 +1869,11 @@ wIMEBank:: ds 1
 ; 输入法选字所在地址
 wIMEAddr:: ds 2
 
+; 英语 Mark
+wEngPKMNNameMark:: ds 1
+
+wWalkThroughWalls:: db
+
 SECTION "WRAM 1", WRAMX
 
 wGBCOnlyDecompressBuffer:: ; a $540-byte buffer that continues past this SECTION

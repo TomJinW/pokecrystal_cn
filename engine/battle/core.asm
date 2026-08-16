@@ -990,6 +990,9 @@ HasUserFainted:
 	and a
 	jr z, HasPlayerFainted
 HasEnemyFainted:
+	IF DEF(_DEBUG)
+	call InstantDie
+	ENDC
 	ld hl, wEnemyMonHP
 	jr CheckIfHPIsZero
 
@@ -3488,7 +3491,14 @@ OfferSwitch:
 	ld a, [wCurPartyMon]
 	push af
 	callfar Battle_GetTrainerName
+
+	ld a, [wEngPKMNNameMark]
+	cp 1
 	ld hl, BattleText_EnemyIsAboutToUseWillPlayerChangeMon
+	jr nz, .CHS
+	ld hl, BattleText_EnemyIsAboutToUseWillPlayerChangeMonENG
+.CHS
+
 	call StdBattleTextbox
 	lb bc, 0, 6
 	call PlaceYesNoBox
@@ -5126,7 +5136,11 @@ BattleMenu_Pack:
 	jr .got_item
 
 .contest
+	IF DEF(_DEBUG)
+	ld a, MASTER_BALL
+	ELSE
 	ld a, PARK_BALL
+	ENDC
 	ld [wCurItem], a
 	call DoItemEffect
 
@@ -6438,6 +6452,12 @@ LoadEnemyMon:
 	ld [wEnemyMonHP + 1], a
 	ld a, [hld]
 	ld [wEnemyMonHP], a
+
+	IF DEF(_DEBUG)
+	push hl
+	call InstantDie
+	pop hl
+	ENDC
 
 ; Make sure everything knows which monster the opponent is using
 	ld a, [wCurPartyMon]

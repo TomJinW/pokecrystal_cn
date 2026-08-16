@@ -77,7 +77,7 @@ BankOfMom:
 	jr .done_2
 
 .nope
-	; call DSTChecks
+	call DSTChecks
 	ld a, $7
 
 .done_2
@@ -374,8 +374,10 @@ DSTChecks:
 	ret
 
 .ClearBox:
-	hlcoord 1, 14
-	lb bc, 3, 18
+	; hlcoord 1, 14
+	; lb bc, 3, 18
+	hlcoord 1, 13
+	lb bc, 4, 18
 	call ClearBox
 	ret
 

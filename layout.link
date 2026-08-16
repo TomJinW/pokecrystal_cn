@@ -29,6 +29,8 @@ ROM0
 	"Header"
 	org $0150
 	"Home"
+	org $3FFF
+	"ROM0END"
 ROMX $01
 	"bank1"
 	"DFS"
@@ -346,6 +348,8 @@ ROMX $7d
 ROMX $7e
 	"Crystal Events"
 ROMX $7f
+	org $4000
+	"Other Pictures"
 	org $4100
 	"Chinese Fonts 7F"
 	org $7de0

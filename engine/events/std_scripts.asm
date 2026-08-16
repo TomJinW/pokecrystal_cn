@@ -1863,8 +1863,8 @@ CoinVendor_IntroScript:
 .MenuData:
 	db STATICMENU_CURSOR ; flags
 	db 3 ; items
-	db_w " 50枚  1000¥@"
-	db_w "500枚 10000¥@"
+	db_w " 50枚  ¥1000@"
+	db_w "500枚 ¥10000@"
 	db_w "取消@"
 
 HappinessCheckScript:

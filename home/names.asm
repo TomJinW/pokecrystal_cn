@@ -121,6 +121,26 @@ GetPokemonName::
 	rst Bankswitch
 
 ; Each name is ten characters
+	ld a, [wEngPKMNNameMark]
+	cp 1
+	jr nz, .CHS
+.ENG
+	; Each name is ten characters
+	ld a, [wNamedObjectIndex]
+	dec a
+	ld d, 0
+	ld e, a
+	ld h, 0
+	ld l, a
+	add hl, hl
+	add hl, hl
+	add hl, de
+	add hl, hl
+	ld de, PokemonNamesENG
+	add hl, de
+	jr .end
+.CHS
+; Each name is ten characters
 	ld a, [wNamedObjectIndex]
 	dec a
 	ld d, 0
@@ -133,7 +153,7 @@ GetPokemonName::
 	add hl, hl
 	ld de, PokemonNames
 	add hl, de
-
+.end
 ; Terminator
 	ld de, wStringBuffer1
 	push de

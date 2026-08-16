@@ -488,7 +488,16 @@ DisplayHOFMon:
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 3
 	call PrintNum
 	call GetBasePokemonName
-	hlcoord 1, 14
+
+
+	ld a, [wEngPKMNNameMark]
+	cp 1
+	hlcoord 1, 14 ;hlcoord 7, 13
+	jr nz, .CHS
+	hlcoord 1, 13 ;hlcoord 7, 13
+.CHS
+
+
 	call PlaceString
 	ld a, TEMPMON
 	ld [wMonType], a

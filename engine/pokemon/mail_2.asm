@@ -36,9 +36,10 @@ ReadAnyMail:
 	ld a, c
 	cp a, $5
 	jr z, .skip_font
-	ld de, StandardEnglishFont
+	; ld de, StandardEnglishFont
 	or a ; MAIL_LANG_ENGLISH
-	jr z, .got_font
+	; jr z, .got_font
+	jr z, .skip_font
 	ld de, FrenchGermanFont
 	sub MAIL_LANG_ITALIAN
 	jr c, .got_font

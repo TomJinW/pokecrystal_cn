@@ -291,6 +291,12 @@ PlayerEvents:
 CheckTrainerEvent:
 	nop
 	nop
+IF DEF(_DEBUG) 
+	call DebugPressedOrHeldB
+	jr z, .bIsNotPressed
+	jr .nope
+.bIsNotPressed
+ENDC
 	call CheckTrainerBattle
 	jr nc, .nope
 
@@ -368,6 +374,14 @@ CheckTileEvent:
 	ret
 
 CheckWildEncounterCooldown::
+IF DEF(_DEBUG) 
+	call DebugPressedOrHeldB
+	jr z, .bIsNotPressed
+	ld a, 2
+	ld hl, wWildEncounterCooldown
+	ld [hl], a
+.bIsNotPressed 
+ENDC
 	ld hl, wWildEncounterCooldown
 	ld a, [hl]
 	and a

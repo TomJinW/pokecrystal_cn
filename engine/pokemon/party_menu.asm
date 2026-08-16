@@ -771,7 +771,7 @@ TeachWhichPKMNString:
 	db_w "要让哪只宝可梦学习？@"
 
 MoveToWhereString:
-	db_w "要与哪只调整位置？@"
+	db_w "移动到哪里？@"
 
 ChooseAFemalePKMNString: ; unreferenced
 	db_w "请选择雌性宝可梦。@"

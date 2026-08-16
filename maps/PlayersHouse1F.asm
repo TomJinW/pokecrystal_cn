@@ -33,6 +33,26 @@ MeetMomRightScript:
 .OnRight:
 	applymovement PLAYERSHOUSE1F_MOM1, MomWalksToPlayerMovement
 MeetMomScript:
+	IF DEF(_DEBUG)
+	giveitem HM_CUT
+	giveitem HM_FLY
+	giveitem HM_SURF
+	giveitem HM_STRENGTH
+	giveitem HM_FLASH
+	giveitem HM_WHIRLPOOL
+	giveitem HM_WATERFALL
+	giveitem TM_ROCK_SMASH
+	giveitem MAX_ELIXER, 95
+	giveitem CARBOS, 95
+	giveitem LEFTOVERS, 95
+	giveitem TWISTEDSPOON, 95
+	giveitem RARE_CANDY, 95
+	giveitem MASTER_BALL, 95
+	giveitem MASTER_BALL, 95
+	giveitem FULL_RESTORE, 95
+	giveitem BERRY, 95
+	giveitem LUCKY_EGG, 95
+	ENDC
 	opentext
 	writetext ElmsLookingForYouText
 	promptbutton
@@ -47,20 +67,20 @@ MeetMomScript:
 	writetext MomGivesPokegearText
 	promptbutton
 	special SetDayOfWeek
-; .SetDayOfWeek:
-	; writetext IsItDSTText
-	; yesorno
-	; iffalse .WrongDay
-	; special InitialSetDSTFlag
-	; yesorno
-	; iffalse .SetDayOfWeek
-	; sjump .DayOfWeekDone
+.SetDayOfWeek:
+	writetext IsItDSTText
+	yesorno
+	iffalse .WrongDay
+	special InitialSetDSTFlag
+	yesorno
+	iffalse .SetDayOfWeek
+	sjump .DayOfWeekDone
 
-; .WrongDay:
-	; special InitialClearDSTFlag
-	; yesorno
-	; iffalse .SetDayOfWeek
-; .DayOfWeekDone:
+.WrongDay:
+	special InitialClearDSTFlag
+	yesorno
+	iffalse .SetDayOfWeek
+.DayOfWeekDone:
 	writetext ComeHomeForDSTText
 	yesorno
 	iffalse .ExplainPhone

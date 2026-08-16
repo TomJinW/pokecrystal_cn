@@ -809,6 +809,15 @@ Printer_PrintBoxListSegment:
 	pop hl
 
 	push hl
+
+	ld a, [wEngPKMNNameMark]
+	cp 1
+	ld bc, 0
+	jr nz, .CHS
+	ld bc, -SCREEN_WIDTH
+.CHS
+	add hl, bc
+
 	call PlaceString
 	ld a, [wCurPartySpecies]
 	cp EGG

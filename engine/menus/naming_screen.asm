@@ -99,7 +99,15 @@ NamingScreen:
 	call PlaceString
 	ld l, c
 	ld h, b
+
+	ld a, [wEngPKMNNameMark]
+	cp 1
 	ld de, .NicknameStrings
+	jr nz, .CHS2
+	ld de, .NicknameStringsENG
+.CHS2
+	call PlaceString
+
 	call PlaceString
 	call DecreaseDFSCombineLevel
 	; inc de
@@ -119,6 +127,10 @@ NamingScreen:
 
 .NicknameStrings:
 	db_w "的昵称？@"
+	
+.NicknameStringsENG:
+	db_w "昵称?@"
+	db "@"
 
 .Player:
 	farcall GetPlayerIcon

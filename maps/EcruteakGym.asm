@@ -9,7 +9,10 @@
 
 EcruteakGym_MapScripts:
 	def_scene_scripts
+	IF DEF(_DEBUG)
+	ELSE
 	scene_script EcruteakGymForcedToLeaveScene, SCENE_ECRUTEAKGYM_FORCED_TO_LEAVE
+	ENDC
 	scene_script EcruteakGymNoopScene,          SCENE_ECRUTEAKGYM_NOOP
 
 	def_callbacks

@@ -67,7 +67,7 @@ MainMenu:
 ; entries correspond to MAINMENUITEM_* constants
 	db_w "继续游戏@"
 	db_w "从头开始@"
-	db_w "重新设置@"
+	db_w "更改设置@"
 	db_w "神秘礼物@"
 	db_w "手机@"
 	db_w "手机竞技场@"

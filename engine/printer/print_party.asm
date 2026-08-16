@@ -24,15 +24,34 @@ PrintPage1:
 	call PlaceFarString ; dex species
 	ld h, b
 	ld l, c
+
+	ld a, [wEngPKMNNameMark]
+	cp 1
 	ld de, .PokemonStr
+	jr nz, .CHS
+	ld de, .PokemonStrENG
+.CHS
+
 	call PlaceString
 	call DecreaseDFSCombineLevel
+
+	ld a, [wEngPKMNNameMark]
+	cp 1
 	hlcoord 17, 1, wPrinterTilemapBuffer
+	jr nz, .CHS3
+	hlcoord 17, 3, wPrinterTilemapBuffer
+.CHS3
 	ld a, $62
 	ld [hli], a
-	inc a ; $63
+	inc a
 	ld [hl], a
+
+	ld a, [wEngPKMNNameMark]
+	cp 1
 	hlcoord 17, 2, wPrinterTilemapBuffer
+	jr nz, .CHS2
+	hlcoord 17, 4, wPrinterTilemapBuffer
+.CHS2
 	ld a, $64
 	ld [hli], a
 	inc a ; $65
@@ -79,6 +98,8 @@ PrintPage1:
 	db_w "体重@"
 .PokemonStr
 	db_w "宝可梦@"
+.PokemonStrENG
+	db_w "@"
 
 PrintPage2:
 	farcall dfsClearCache
@@ -138,25 +159,25 @@ GBPrinterString_Printing:     next "  正在打印...@"
 GBPrinterString_PrinterError1:
 	db_w " 打印错误  错误1"
 	next ""
-	next "请阅读袖珍打印机的"
+	next "请阅读口袋打印机的"
 	next "说明书。"
 	db_w "@"
 GBPrinterString_PrinterError2:
 	db_w " 打印错误  错误2"
 	next ""
-	next "请阅读袖珍打印机的"
+	next "请阅读口袋打印机的"
 	next "说明书。"
 	db_w "@"
 GBPrinterString_PrinterError3:
 	db_w " 打印错误  错误3"
 	next ""
-	next "请阅读袖珍打印机的"
+	next "请阅读口袋打印机的"
 	next "说明书。"
 	db_w "@"
 GBPrinterString_PrinterError4:
 	db_w " 打印错误  错误4"
 	next ""
-	next "请阅读袖珍打印机的"
+	next "请阅读口袋打印机的"
 	next "说明书。"
 	db_w "@"
 
@@ -217,10 +238,24 @@ PrintPartyMonPage1:
 	; hlcoord 9, 6
 	; ld [hl], "/"
 	hlcoord 8, 3
+
+	ld a, [wEngPKMNNameMark]
+	cp 1
 	ld de, PrintParty_MoveString
+	jr nz, .CHS
+	ld de, PrintParty_MoveStringENG
+.CHS
+
 	call PlaceString
 	call GetPokemonName
+	
+	ld a, [wEngPKMNNameMark]
+	cp 1
 	hlcoord 11, 3
+	jr nz, .CHS2
+	hlcoord 8, 3
+.CHS2
+
 	call PlaceString
 	hlcoord 1, 0
 	ld [hl], "№"
@@ -432,6 +467,9 @@ PrintParty_OTString:
 
 PrintParty_MoveString:
 	db_w "名/@"
+
+PrintParty_MoveStringENG:
+	db_w "@"
 
 PrintParty_IDNoString:
 	db_w "<ID>№.@"

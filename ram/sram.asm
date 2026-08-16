@@ -81,8 +81,10 @@ sSkipBattle:: db
 sDebugTimeCyclesSinceLastCall:: db
 sOpenedInvalidSRAM:: db
 sIsBugMon:: db
+Else
+ds 6
 endc
-
+sENGMark:: db
 
 SECTION "Save", SRAM
 

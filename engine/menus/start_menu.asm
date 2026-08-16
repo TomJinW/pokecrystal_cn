@@ -11,6 +11,16 @@
 	const STARTMENUITEM_QUIT     ; 8
 
 StartMenu::
+IF DEF(_DEBUG) 
+	push af
+	call DebugPressedOrHeldB
+	jr z, .bIsNotPressed
+	ld a,[wWalkThroughWalls]
+	cpl
+	ld [wWalkThroughWalls],a
+.bIsNotPressed 
+	pop af
+ENDC
 	call ClearWindowData
 
 	ld de, SFX_MENU
@@ -163,12 +173,14 @@ StartMenu::
 .MenuHeader:
 	db MENU_BACKUP_TILES ; flags
 	menu_coords 12, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+	; menu_coords 10, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
 	dw .MenuData
 	db 1 ; default selection
 
 .ContestMenuHeader:
 	db MENU_BACKUP_TILES ; flags
 	menu_coords 12, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
+	; menu_coords 10, 0, SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1
 	dw .MenuData
 	db 1 ; default selection
 

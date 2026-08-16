@@ -1117,21 +1117,29 @@ TitleScreenEntrance:
 
 ; Reversed signage for every other line's position.
 ; This is responsible for the interlaced effect.
+	ld a, [Rom0End]
+	cp $A0
+	jr nz, .skipFillForJLBKM
+	ld a, e
+	xor $ff
+	inc a
+	ld b, 8 * 10 / 2 ; logo height / 2
+	ld hl, wLYOverrides + 1
+.loop
+	ld [hli], a
+	inc hl
+	dec b
+	jr nz, .loop
+	farcall AnimateTitleCrystal
+	ret
+
+.skipFillForJLBKM
 	ld hl, wLYOverrides + $18
 	ld bc, $0028
 	ld a, e
 	xor $ff
 	inc a
 	call ByteFill
-
-; 	ld b, 8 * 10 / 2 ; logo height / 2
-; 	ld hl, wLYOverrides + 1
-; .loop
-; 	ld [hli], a
-; 	inc hl
-; 	dec b
-; 	jr nz, .loop
-
 	farcall AnimateTitleCrystal
 	ret
 

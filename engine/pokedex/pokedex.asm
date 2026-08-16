@@ -1230,7 +1230,13 @@ Pokedex_DrawOptionScreenBG:
 	ld de, .Title
 	call Pokedex_PlaceString
 	hlcoord 3, 4
+
+	ld a, [wEngPKMNNameMark]
+	cp 1
 	ld de, .Modes
+	jr nz, .CHS
+	ld de, .ModesENG
+.CHS
 	call PlaceString
 	ld a, [wUnlockedUnownMode]
 	and a
@@ -1248,6 +1254,11 @@ Pokedex_DrawOptionScreenBG:
 	next "传统图鉴模式"
 	next "拼音排序模式"
 	db_w "@"
+.ModesENG:
+	db_w "新型图鉴模式"
+	next "传统图鉴模式"
+	next "英文排序模式"
+	db   "@"
 
 .UnownMode:
 	db_w "未知图腾图鉴@"
@@ -1550,11 +1561,11 @@ Pokedex_PrintListing:
 	ld e, l
 	ld d, h
 	hlcoord 0, 2
-	ld a, [wCurDexMode]
-	cp DEXMODE_OLD
-	jr z, .okay2
-	inc hl
-.okay2
+; 	ld a, [wCurDexMode]
+; 	cp DEXMODE_OLD
+; 	jr z, .okay2
+; 	inc hl
+; .okay2
 	ld a, [wDexListingHeight]
 .loop
 	push af
@@ -1600,10 +1611,24 @@ Pokedex_PrintNumberIfOldMode:
 	; push hl
 	; ld de, -SCREEN_WIDTH
 	; add hl, de
+	ld a, [wEngPKMNNameMark]
+	cp 1
+	jr nz, .CHS
+	push hl
+	ld de, -SCREEN_WIDTH
+	add hl, de
+.CHS
+
 	ld de, wTempSpecies
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 3
 	call PrintNum
 	; pop hl
+	ld a, [wEngPKMNNameMark]
+	cp 1
+	jr nz, .CHS2
+	pop hl
+	inc hl
+.CHS2
 	ret
 
 Pokedex_PlaceCaughtSymbolIfCaught:
@@ -1625,7 +1650,12 @@ Pokedex_PlaceCaughtSymbolIfCaught:
 
 .olddex
 	push hl
+	ld a, [wEngPKMNNameMark]
+	cp 1
 	ld de, -SCREEN_WIDTH - 1
+	jr nz, .CHS
+	ld de, -1
+.CHS
 	add hl, de
 	ld [hl], $4f
 	pop hl
@@ -1648,12 +1678,23 @@ Pokedex_PlaceDefaultStringIfNotSeen:
 	db_w "-----@"
 
 Pokedex_DrawFootprint:
+	ld a, [wEngPKMNNameMark]
+	cp 1
 	hlcoord 18, 1
+	jr nz, .CHS
+	hlcoord 18, 3
+.CHS
 	ld a, $62
 	ld [hli], a
 	inc a
 	ld [hl], a
+
+	ld a, [wEngPKMNNameMark]
+	cp 1
 	hlcoord 18, 2
+	jr nz, .CHS2
+	hlcoord 18, 4
+.CHS2
 	ld a, $64
 	ld [hli], a
 	inc a
@@ -1757,7 +1798,15 @@ Pokedex_ABCMode:
 	ld [wDexListingEnd], a
 	ld hl, wPokedexOrder
 	ld de, AlphabeticalPokedexOrder
+
+	ld a, [wEngPKMNNameMark]
+	cp 1
+	ld de, AlphabeticalPokedexOrder
+	jr nz, .CHS
+	ld de, AlphabeticalPokedexOrderENG
+.CHS
 	ld c, NUM_POKEMON
+
 .loop1abc
 	push bc
 	ld a, [de]
@@ -1799,6 +1848,15 @@ Pokedex_DisplayModeDescription:
 	lb bc, 4, 18
 	call Pokedex_PlaceBorder
 	ld a, [wDexArrowCursorPosIndex]
+	cp 2
+	jr nz, .notAlphaBetMode
+	ld a, [wEngPKMNNameMark]
+	cp 1
+	ld a, 2
+	jr nz, .CHS
+	ld a, 4
+.CHS
+.notAlphaBetMode
 	ld hl, .Modes
 	call Pokedex_LoadPointer
 	ld e, l
@@ -1814,6 +1872,7 @@ Pokedex_DisplayModeDescription:
 	dw .OldMode
 	dw .ABCMode
 	dw .UnownMode
+	dw .ENGMode
 
 .NewMode:
 	db_w "将宝可梦按照"
@@ -1830,6 +1889,10 @@ Pokedex_DisplayModeDescription:
 .UnownMode:
 	db_w "将未知图腾按照"
 	next "捕捉的顺序记录。@"
+
+.ENGMode:
+	db_w   	"将宝可梦按照"
+	next 	"英文字母顺序表示。@"
 
 Pokedex_DisplayChangingModesMessage:
 	xor a
@@ -2626,7 +2689,7 @@ _NewPokedexEntry:
 	ld [wCurPartySpecies], a
 	call Pokedex_DrawDexEntryScreenBG
 	call Pokedex_DrawFootprint
-	hlcoord 1, 17
+	hlcoord 1, 17 ;hlcoord 1, 17
 	; ld [hl], $3b
 	; inc hl
 	ld bc, 19

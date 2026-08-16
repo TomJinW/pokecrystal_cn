@@ -13,11 +13,11 @@ MonMenuOptionStrings:
 ; entries correspond to MONMENUVALUE_* constants
 	list_start MonMenuOptionStrings
 	li "查看能力"
-	li "调整位置"
+	li "替换排序"
 	li "持有物"
 	li "退出"
-	li "可用招式"
-	li "邮件"
+	li "招式"
+	li "信件"
 	li "错误!"
 	assert_list_length NUM_MONMENUVALUES
 

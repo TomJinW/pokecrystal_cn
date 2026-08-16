@@ -493,6 +493,10 @@ SaveOptions:
 	ld a, [wOptions]
 	and ~(1 << NO_TEXT_SCROLL)
 	ld [sOptions], a
+
+	ld a, [wEngPKMNNameMark]
+	ld [sENGMark], a
+
 	jp CloseSRAM
 
 SavePlayerData:
@@ -649,6 +653,15 @@ TryLoadSaveData:
 
 	ld a, BANK(sPlayerData)
 	call OpenSRAM
+
+	ld a, [sENGMark]
+	cp 1
+	ld a, 0
+	jr nz, .CHS
+	ld a, 1
+.CHS
+	ld [wEngPKMNNameMark], a
+
 	ld hl, sPlayerData + wStartDay - wPlayerData
 	ld de, wStartDay
 	ld bc, 8

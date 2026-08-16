@@ -562,8 +562,10 @@ InitialSetDSTFlag:
 	ld a, [wDST]
 	set 7, a
 	ld [wDST], a
-	hlcoord 1, 14
-	lb bc, 3, 18
+	; hlcoord 1, 14
+	; lb bc, 3, 18
+	hlcoord 1, 13
+	lb bc, 4, 18
 	call ClearBox
 	ld hl, .Text
 	call PrintTextboxTextAt
@@ -589,8 +591,10 @@ InitialClearDSTFlag:
 	ld a, [wDST]
 	res 7, a
 	ld [wDST], a
-	hlcoord 1, 14
-	lb bc, 3, 18
+	; hlcoord 1, 14
+	; lb bc, 3, 18
+	hlcoord 1, 13
+	lb bc, 4, 18
 	call ClearBox
 	ld hl, .Text
 	call PrintTextboxTextAt

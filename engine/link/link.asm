@@ -16,13 +16,17 @@ LinkCommunications:
 	call LoadFontsBattleExtra
 	farcall LinkComms_LoadPleaseWaitTextboxBorderGFX
 	call WaitBGMap2
-	hlcoord 6, 8
+	; hlcoord 6, 8
+	; ld b, 2
+	; ld c, 6
+	hlcoord 3, 8
 	ld b, 2
-	ld c, 6
+	ld c, 12
 	ld d, h
 	ld e, l
 	farcall LinkTextbox2
-	hlcoord 7, 10
+	; hlcoord 7, 10
+	hlcoord 5, 10
 	ld de, String_PleaseWait
 	call PlaceString
 	call SetTradeRoomBGPals
@@ -599,7 +603,7 @@ ExchangeBytes:
 	ret
 
 String_PleaseWait:
-	db_w "请稍等！@"
+	db_w "请您稍等……！@"
 
 ClearLinkData:
 	ld hl, wLinkData
@@ -1951,7 +1955,7 @@ LinkTrade_TradeStatsMenu:
 	text_end
 
 .String_Stats_Trade:
-	db_w "状态       交换@"
+	db_w "查看能力    交换@"
 
 .LinkAbnormalMonText:
 	text_far _LinkAbnormalMonText
@@ -2448,11 +2452,11 @@ LinkAskTradeForText:
 	text_end
 
 String_TradeCompleted:
-	db_w "交换结束！@"
+	db_w "交换完成！@"
 
 String_TooBadTheTradeWasCanceled:
-	db_w "真遗憾！"
-	next "交换被切断了！@"
+	db_w "非常抱歉，"
+	next "交换已取消！@"
 
 LinkTextboxAtHL:
 	ld d, h

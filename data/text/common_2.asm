@@ -1004,6 +1004,16 @@ _ContestJudging_SecondPlaceText::
 	text "!@"
 	text_end
 
+_ContestJudging_SecondPlaceTextENG::
+	text "第2名是捉到了"
+	line "@"
+	text_ram wStringBuffer1
+	text "的"
+	cont "@" 
+	text_ram wBugContestWinnerName
+	text "。@"
+	text_end
+
 _ContestJudging_SecondPlaceScoreText::
 	text_start
 
@@ -1023,6 +1033,16 @@ _ContestJudging_ThirdPlaceText::
 	line "@"
 	text_ram wStringBuffer1
 	text "!@"
+	text_end
+
+_ContestJudging_ThirdPlaceTextENG::
+	text "第3名是捉到了"
+	line "@"
+	text_ram wStringBuffer1
+	text "的"
+	cont "@" 
+	text_ram wBugContestWinnerName
+	text "。@"
 	text_end
 
 _ContestJudging_ThirdPlaceScoreText::

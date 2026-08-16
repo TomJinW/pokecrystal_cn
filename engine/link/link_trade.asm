@@ -166,11 +166,14 @@ PlaceWaitingTextAndSyncAndExchangeNybble:
 	ret
 
 .PlaceWaitingText:
-	hlcoord 4, 9
+	; hlcoord 4, 9
+	; ld b, 2
+	; ld c, 9
+	hlcoord 3, 8
 	ld b, 2
-	ld c, 9
+	ld c, 12
 	predef LinkTextboxAtHL
-	hlcoord 5, 11
+	hlcoord 5, 10 ;hlcoord 5, 11
 	ld de, .Waiting
 	call PlaceString
 	call WaitBGMap
@@ -179,7 +182,7 @@ PlaceWaitingTextAndSyncAndExchangeNybble:
 	jp DelayFrames
 
 .Waiting:
-	db_w "请稍等……！@"
+	db_w "请您稍等……！@"
 
 LinkTradeMenu:
 	call .MenuAction

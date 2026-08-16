@@ -1773,7 +1773,7 @@ NoRadioName:
 	ret
 
 OaksPKMNTalkName:     db_w "大木博士的宝可梦讲座@"
-PokedexShowName:      db_w "好好了解 宝可梦图鉴@"
+PokedexShowName:      db_w "通俗易懂的宝可梦图鉴@"
 PokemonMusicName:     db_w "宝可梦音乐台@"
 LuckyChannelName:     db_w "幸运频道@"
 UnownStationName:     db_w "?????@"
@@ -2176,7 +2176,12 @@ _FlyMap:
 .NotAtEndYet:
 	inc [hl]
 	call CheckIfVisitedFlypoint
+	IF DEF(_DEBUG)
+	nop
+	nop
+	ELSE
 	jr z, .ScrollNext
+	ENDC
 	jr .Finally
 
 .ScrollPrev:
@@ -2190,7 +2195,12 @@ _FlyMap:
 .NotAtStartYet:
 	dec [hl]
 	call CheckIfVisitedFlypoint
+	IF DEF(_DEBUG)
+	nop
+	nop
+	ELSE
 	jr z, .ScrollPrev
+	ENDC
 .Finally:
 	call TownMapBubble
 	call WaitBGMap
@@ -2560,13 +2570,22 @@ Pokedex_GetArea:
 	call PlaceString
 	ld h, b
 	ld l, c
+	
+	ld a, [wEngPKMNNameMark]
+	cp 1
 	ld de, .String_SNest
+	jr nz, .CHS
+	ld de, .String_SNestENG
+.CHS
+
 	call PlaceString
 	call DecreaseDFSCombineLevel
 	ret
 
 .String_SNest:
 	db_w "的分布@"
+.String_SNestENG:
+	db "@"
 
 .GetAndPlaceNest:
 	ld [wTownMapCursorLandmark], a

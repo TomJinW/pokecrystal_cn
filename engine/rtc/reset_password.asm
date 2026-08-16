@@ -16,7 +16,11 @@ _ResetClock:
 	cp 1
 	ret z
 	call ClockResetPassword
+	IF DEF(_DEBUG)
+	jr nc, .wrongpassword
+	ELSE
 	jr c, .wrongpassword
+	ENDC
 	ld a, BANK(sRTCStatusFlags)
 	call OpenSRAM
 	ld a, $80

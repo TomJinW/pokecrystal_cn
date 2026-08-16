@@ -91,7 +91,12 @@ DisplayDexEntry:
 	ld h, b
 	ld l, c
 	push de
+	ld a, [wEngPKMNNameMark]
+	cp 1
 	ld de, POKeString
+	jr nz, .CHS
+	ld de, POKeStringENG
+.CHS
 	call PlaceString
 	call DecreaseDFSCombineLevel
 ; Print dex number
@@ -227,7 +232,9 @@ DisplayDexEntry:
 
 POKeString: ; unreferenced
 	db_w "宝可梦@"
-
+POKeStringENG: ; unreferenced
+	db "@"
+	
 GetDexEntryPointer:
 ; return dex entry pointer b:de
 	push hl

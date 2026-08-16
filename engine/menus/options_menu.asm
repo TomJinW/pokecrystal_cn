@@ -43,6 +43,12 @@ _Option:
 	jr nz, .print_text_loop
 	call UpdateFrame ; display the frame type
 
+	ld de, CHSENGLabel
+	ld hl, vTiles2 tile $0
+	lb bc, BANK(CHSENGLabel), 11
+	call Get1bpp
+	call DisplayCHSENGLabel
+
 	xor a
 	ld [wJumptableIndex], a
 	inc a
@@ -76,6 +82,56 @@ _Option:
 	ldh [hInMenu], a
 	ret
 
+DisplayCHSENGLabel:
+	hlcoord 1,15
+	ld a, [wEngPKMNNameMark]
+	cp 1
+	ld de, .CHSText
+	jr nz, .CHS
+	ld de, .ENGText
+.CHS
+	call PlaceStringDirect
+
+	ld de, .PKMN
+	hlcoord 7,16
+	call PlaceStringDirect
+
+	ret
+.CHSText
+	db $00,$01,$02,$01,$03,$04,$6f,$05,$07,-1
+.ENGText
+	db $00,$01,$02,$01,$03,$04,$6f,$06,$07,-1
+.PKMN
+	db $08,$09,$0A,-1
+
+PlaceStringDirect::
+	push hl
+.loop
+	ld a, [de]
+	cp -1
+	jr z, .done
+	cp $fe
+	jr nz, .notNewLine
+	pop hl
+	ld bc, SCREEN_WIDTH
+	add hl, bc
+	push hl
+	inc de
+	jr .loop
+.notNewLine
+	inc de
+	; cp $72
+	; jr nc, .notUsingShift
+	; ld c, a
+	; ldh a, [hCurrentPrintTileIDOffset]
+	; add a, c
+.notUsingShift
+	ld [hli], a
+	jr .loop
+.done
+	pop hl
+	ret
+
 StringOptions:
 	db_w "语速"
 	next "对战动画"
@@ -84,7 +140,7 @@ StringOptions:
 	next "打印浓度"
 	next "菜单说明"
 	next "边框       类型"
-	next "          结束@"
+	next $69, "130      结束@"
 
 GetOptionPointer:
 	jumptable .Pointers, wJumptableIndex
@@ -497,7 +553,16 @@ OptionsControl:
 	jr z, .DownPressed
 	cp D_UP
 	jr z, .UpPressed
+	cp SELECT
+	jr z, .SelectPressed
 	and a
+	ret
+.SelectPressed
+	ld a, [wEngPKMNNameMark]
+	and 1
+	xor 1
+	ld [wEngPKMNNameMark], a
+	call DisplayCHSENGLabel
 	ret
 
 .DownPressed:

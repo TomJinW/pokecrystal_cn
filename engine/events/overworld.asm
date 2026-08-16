@@ -280,7 +280,10 @@ FlashFunction:
 .CheckUseFlash:
 	ld de, ENGINE_ZEPHYRBADGE
 	farcall CheckBadge
+	IF DEF(_DEBUG)
+	ELSE
 	jr c, .nozephyrbadge
+	ENDC
 	push hl
 	farcall SpecialAerodactylChamber
 	pop hl
@@ -346,7 +349,10 @@ SurfFunction:
 .TrySurf:
 	ld de, ENGINE_FOGBADGE
 	call CheckBadge
+	IF DEF(_DEBUG)
+	ELSE
 	jr c, .nofogbadge
+	ENDC
 	ld hl, wBikeFlags
 	bit BIKEFLAGS_ALWAYS_ON_BIKE_F, [hl]
 	jr nz, .cannotsurf
@@ -557,6 +563,9 @@ FlyFunction:
 	dw .FailFly
 
 .TryFly:
+	IF DEF(_DEBUG)
+	jr .outdoors
+	ELSE
 	ld de, ENGINE_STORMBADGE
 	call CheckBadge
 	jr c, .nostormbadge
@@ -564,6 +573,7 @@ FlyFunction:
 	call CheckOutdoorMap
 	jr z, .outdoors
 	jr .indoors
+	ENDC
 
 .outdoors
 	xor a
@@ -638,8 +648,11 @@ WaterfallFunction:
 .TryWaterfall:
 	ld de, ENGINE_RISINGBADGE
 	farcall CheckBadge
+	IF DEF(_DEBUG)
+	ELSE
 	ld a, $80
 	ret c
+	ENDC
 	call CheckMapCanWaterfall
 	jr c, .failed
 	ld hl, Script_WaterfallFromMenu
@@ -963,7 +976,10 @@ StrengthFunction:
 .TryStrength:
 	ld de, ENGINE_PLAINBADGE
 	call CheckBadge
+	IF DEF(_DEBUG)
+	ELSE
 	jr c, .Failed
+	ENDC
 	jr .UseStrength
 
 .AlreadyUsingStrength: ; unreferenced
@@ -1099,7 +1115,10 @@ WhirlpoolFunction:
 .TryWhirlpool:
 	ld de, ENGINE_GLACIERBADGE
 	call CheckBadge
+	IF DEF(_DEBUG)
+	ELSE
 	jr c, .noglacierbadge
+	ENDC
 	call TryWhirlpoolMenu
 	jr c, .failed
 	ld a, $1
@@ -1770,8 +1789,10 @@ TryCutOW::
 
 	ld de, ENGINE_HIVEBADGE
 	call CheckEngineFlag
+	IF DEF(_DEBUG)
+	ELSE
 	jr c, .cant_cut
-
+	ENDC
 	ld a, BANK(AskCutScript)
 	ld hl, AskCutScript
 	call CallScript

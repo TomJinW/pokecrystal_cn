@@ -216,6 +216,7 @@ GivePokeMail::
 	ld hl, wPartyMonOTs
 	ld bc, NAME_LENGTH
 	call AddNTimes
+	; ld bc, NAME_LENGTH - 1
 	ld bc, NAME_LENGTH - 3 ; NAME_LENGTH - 1
 	call CopyBytes
 	ld a, "C"
@@ -567,7 +568,7 @@ MailboxPC:
 .SubMenuData:
 	db STATICMENU_CURSOR ; flags
 	db 4 ; items
-	db_w "阅读邮件@"
+	db_w "阅读信件@"
 	db_w "放入背包@"
-	db_w "携带邮件@"
+	db_w "携带信件@"
 	db_w "取消@"

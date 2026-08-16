@@ -1159,7 +1159,20 @@ PCMonInfo:
 	ret z
 
 	call GetBasePokemonName
+
+	ld a, [wEngPKMNNameMark]
+	cp 1
+	hlcoord 1, 12 ;hlcoord 1, 14
+	jr nz, .CHS
+	;ENG
+	farcall GetStrLength
+	ld a, b
+	cp 10
 	hlcoord 1, 12
+	jr c, .lessThan10Char
+	hlcoord 0, 12 ;hlcoord 1, 14
+.CHS
+.lessThan10Char
 	call PlaceString
 
 	hlcoord 2, 10
@@ -2309,7 +2322,7 @@ PCString_MoveToWhere: db_w "请选择移动目标。@"
 PCString_ItsYourLastPKMN: db_w "同行的宝可梦要没有了！@"
 PCString_TheresNoRoom: db_w "这里已经放满了！@"
 PCString_NoMoreUsablePKMN: db_w "可战斗的宝可梦要没有了！@"
-PCString_RemoveMail: db_w "请取下邮件！@"
+PCString_RemoveMail: db_w "请取下信件！@"
 PCString_ReleasedPKMN: db_w "把宝可梦放生到外面去了。@"
 PCString_Bye: db_w "再见@"
 PCString_Stored: db_w "寄放了@"
@@ -2564,7 +2577,7 @@ BillsPC_ChangeBoxSubmenu:
 .MenuData:
 	db STATICMENU_CURSOR ; flags
 	db 4 ; items
-	db_w "切换@"
+	db_w "更换@"
 	db_w "起名@"
 	db_w "打印@"
 	db_w "放弃@"

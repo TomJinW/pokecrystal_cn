@@ -86,18 +86,18 @@ DisplayCoinCaseBalance:
 	ret
 
 DisplayMoneyAndCoinBalance:
-	hlcoord 5, 0
+	hlcoord 4, 0
 	ld b, 4
-	ld c, 13
+	ld c, 14
 	call Textbox
-	hlcoord 6, 2
+	hlcoord 5, 2
 	ld de, MoneyString
 	call PlaceString
-	hlcoord 11, 2
+	hlcoord 10, 2
 	ld de, wMoney
-	lb bc, 3, 6 ; PRINTNUM_MONEY | 3, 6
+	lb bc,PRINTNUM_MONEY | 3, 6 
 	call PrintNum
-	hlcoord 6, 4
+	hlcoord 5, 4
 	ld de, CoinString
 	call PlaceString
 	hlcoord 13, 4
@@ -110,7 +110,7 @@ DisplayMoneyAndCoinBalance:
 	ret
 
 MoneyString:
-	db_w "零花钱      元@"
+	db_w "零花钱@"
 CoinString:
 	db_w "代币@"
 ShowMoney_TerminatorString:

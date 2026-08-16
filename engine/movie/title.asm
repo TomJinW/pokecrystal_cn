@@ -33,6 +33,9 @@ _TitleScreen:
 	xor a
 	call ByteFill
 
+	ld a, [Rom0End]
+	cp $A0
+	jr nz, .jlbkm
 ; Fill tile palettes:
 
 ; BG Map 1:
@@ -40,12 +43,59 @@ _TitleScreen:
 ; line 0 (copyright)
 	hlbgcoord 0, 0, vBGMap1
 	ld bc, BG_MAP_WIDTH
-	ld a, 5 ; palette
+	ld a, 7 ; palette
 	call ByteFill
 
 ; BG Map 0:
 
 ; Apply logo gradient:
+
+; lines 3-4
+	hlbgcoord 0, 3
+	ld bc, 2 * BG_MAP_WIDTH
+	ld a, 2
+	call ByteFill
+; line 5
+	hlbgcoord 0, 5
+	ld bc, BG_MAP_WIDTH
+	ld a, 3
+	call ByteFill
+; line 6
+	hlbgcoord 0, 6
+	ld bc, BG_MAP_WIDTH
+	ld a, 4
+	call ByteFill
+; line 7
+	hlbgcoord 0, 7
+	ld bc, BG_MAP_WIDTH
+	ld a, 5
+	call ByteFill
+; lines 8-9
+	hlbgcoord 0, 8
+	ld bc, 2 * BG_MAP_WIDTH
+	ld a, 6
+	call ByteFill
+
+; 'CRYSTAL VERSION'
+	hlbgcoord 5, 9
+	ld bc, 11 ; length of version text
+	ld a, 1
+	call ByteFill
+
+; 'CRYSTAL VERSION'
+	hlbgcoord 5, 10
+	ld bc, 11 ; length of version text
+	ld a, 1
+	call ByteFill
+
+	jr .suicune
+
+.jlbkm
+; line 0 (copyright)
+	hlbgcoord 0, 0, vBGMap1
+	ld bc, BG_MAP_WIDTH
+	ld a, 5 ; palette
+	call ByteFill
 
 ; line 3
 	hlbgcoord 0, 3
@@ -68,11 +118,7 @@ _TitleScreen:
 	ld a, 2
 	call ByteFill
 
-; 'CRYSTAL VERSION'
-	; hlbgcoord 5, 9
-	; ld bc, 11 ; length of version text
-	; ld a, 1
-	; call ByteFill
+.suicune
 
 ; Suicune gfx
 	hlbgcoord 0, 12
@@ -91,9 +137,19 @@ _TitleScreen:
 	ldh [rVBK], a
 
 ; Decompress logo
+	ld a, [Rom0End]
+	cp $A0
+	jr nz, .jlbkmlogo
+	ld hl, TitleBKMLogoGFX
+	ld a, BANK(TitleBKMLogoGFX)
+	ld de, vTiles1
+	call FarDecompress
+	jr .titledone
+.jlbkmlogo
 	ld hl, TitleLogoGFX
 	ld de, vTiles1
 	call Decompress
+.titledone
 
 ; Decompress background crystal
 	ld hl, TitleCrystalGFX
@@ -133,12 +189,22 @@ _TitleScreen:
 	ld a, BANK(wBGPals1)
 	ldh [rSVBK], a
 
+	ld a, [Rom0End]
+	cp $A0
+	ld hl, TitleScreenBKMPalettes
+	jr z, .titlepal1
 	ld hl, TitleScreenPalettes
+.titlepal1
 	ld de, wBGPals1
 	ld bc, 16 palettes
 	call CopyBytes
 
+	ld a, [Rom0End]
+	cp $A0
+	ld hl, TitleScreenBKMPalettes
+	jr z, .titlepal2
 	ld hl, TitleScreenPalettes
+.titlepal2
 	ld de, wBGPals2
 	ld bc, 16 palettes
 	call CopyBytes
@@ -157,17 +223,22 @@ _TitleScreen:
 
 ; (This part is actually totally pointless, you can't
 ;  see anything until these values are overwritten!)
+	ld a, [Rom0End]
+	cp $A0
+	jr nz, .jlbkmmove
 
-	; ld b, 80 / 2 ; alternate for 80 lines
-	; ld hl, wLYOverrides
+; 	ld b, 80 / 2 ; alternate for 80 lines
+; 	ld hl, wLYOverrides
 ; .loop
-; $00 is the middle position
-	; ld [hl], +112 ; coming from the left
-	; inc hl
-	; ld [hl], -112 ; coming from the right
-	; inc hl
-	; dec b
-	; jr nz, .loop
+; ; $00 is the middle position
+; 	ld [hl], +112 ; coming from the left
+; 	inc hl
+; 	ld [hl], -112 ; coming from the right
+; 	inc hl
+; 	dec b
+; 	jr nz, .loop
+	jr .scandone
+.jlbkmmove
 	ld hl, wLYOverrides
 	ld a, +112
 	ld bc, $0050
@@ -177,6 +248,7 @@ _TitleScreen:
 	ld bc, $0028
 	call ByteFill
 
+.scandone
 ; Make sure the rest of the buffer is empty
 	ld hl, wLYOverrides + 80
 	xor a
@@ -382,3 +454,6 @@ INCBIN "gfx/title/crystal.2bpp.lz"
 
 TitleScreenPalettes:
 INCLUDE "gfx/title/title.pal"
+
+TitleScreenBKMPalettes::
+INCLUDE "gfx/title/title-bkm.pal"

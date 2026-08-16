@@ -68,6 +68,7 @@ clean: tidy
 	find gfx \
 	     \( -name "*.[12]bpp" \
 	        -o -name "*.lz" \
+			-o -name "*.lz.bin" \
 	        -o -name "*.gbcpal" \
 	        -o -name "*.sgb.tilemap" \) \
 	     -delete
@@ -155,9 +156,11 @@ endif
 
 pokecrystal_opt         = -Cjv -t PM_CRYSTAL -i BYTE -n 0 -k 01 -l 0x33 -m 0x10 -r 3 -p 0
 pokecrystal11_opt       = -Cjv -t PM_CRYSTAL -i BYTC -n 1 -k 01 -l 0x33 -m 0x10 -r 3 -p 0
+# pokecrystal11_opt       = -Cjv -t PM_CRYSTAL -i BYTE -n 1 -k 01 -l 0x33 -m 0x10 -r 3 -p 0
 pokecrystal_au_opt      = -Cjv -t PM_CRYSTAL -i BYTU -n 0 -k 01 -l 0x33 -m 0x10 -r 3 -p 0
 pokecrystal_debug_opt   = -Cjv -t PM_CRYSTAL -i BYTE -n 0 -k 01 -l 0x33 -m 0x10 -r 3 -p 0
 pokecrystal11_debug_opt = -Cjv -t PM_CRYSTAL -i BYTC -n 1 -k 01 -l 0x33 -m 0x10 -r 3 -p 0
+# pokecrystal11_debug_opt = -Cjv -t PM_CRYSTAL -i BYTE -n 1 -k 01 -l 0x33 -m 0x10 -r 3 -p 0
 pokecrystal11_vc_opt    = -Cjv -t PM_CRYSTAL -i BYTE -n 1 -k 01 -l 0x33 -m 0x10 -r 3 -p 0
 
 %.gbc: $$(%_obj) layout.link
@@ -174,6 +177,8 @@ include gfx/lz.mk
 %.lz: %
 	tools/lzcomp $(LZFLAGS) -- $< $@
 
+%.lz.bin: %
+	tools/lzcomp $(LZFLAGS) -- $< $@
 
 ### Pokemon pic animation rules
 

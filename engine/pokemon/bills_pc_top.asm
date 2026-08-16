@@ -80,10 +80,10 @@ _BillsPC:
 	dw .strings
 
 .strings
-	db_w "带走宝可梦@"
+	db_w "取出宝可梦@"
 	db_w "寄放宝可梦@"
-	db_w "切换盒子@"
-	db_w "整理盒子  /请取下邮件@"
+	db_w "更换盒子@"
+	db_w "整理盒子  /请取下信件@"
 	db_w "再见@"
 
 .Jumptable:

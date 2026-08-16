@@ -167,6 +167,7 @@ INCLUDE "engine/pokedex/pokedex.asm"
 INCLUDE "data/moves/moves.asm"
 INCLUDE "engine/pokemon/evolve.asm"
 
+INCLUDE "data/pokemon/dex_order_alpha_eng.asm"
 
 SECTION "bank11", ROMX
 
@@ -246,7 +247,7 @@ INCLUDE "engine/pokemon/switchpartymons.asm"
 INCLUDE "engine/gfx/load_pics.asm"
 INCLUDE "engine/pokemon/move_mon_wo_mail.asm"
 INCLUDE "data/pokemon/base_stats.asm"
-INCLUDE "data/pokemon/names.asm"
+; INCLUDE "data/pokemon/names.asm"
 INCLUDE "data/pokemon/unused_pic_banks.asm"
 
 
@@ -854,6 +855,10 @@ DFS_C_2A_H::
 INCBIN "gfx/dfs/ChineseFonts_2A_H.bin"
 DFS_C_2B_L::
 INCBIN "gfx/dfs/ChineseFonts_2B_L.bin"
+
+SECTION "Other Pictures", ROMX
+CHSENGLabel::
+INCBIN "extra/chsenglabel.1bpp"
 
 SECTION "Chinese Fonts 7F", ROMX
 DFS_C_2B_H::

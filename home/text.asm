@@ -455,29 +455,33 @@ PlaceEnemysName::
 	call PlaceString
 	push bc
 	callfar Battle_GetTrainerName
-	ld de, wOTClassName
-	callfar GetStrLength
-	push bc
 	ld de, wStringBuffer1
-	callfar GetStrLength
-	ld a, b
-	pop bc
-	add b
-	cp 9 + 7 ; 宝可梦训练家ABCDEFG
 	pop hl
-	jr nc, .skip_space
-	; ld h, b
-	; ld l, c
-	ld de, String_Space
-	call PlaceString
-	ld h, b
-	ld l, c
-	; push bc
-	; callfar Battle_GetTrainerName
-	; pop hl
-	ld de, wStringBuffer1
-.skip_space
 	jr PlaceCommandCharacter
+
+; 	ld de, wOTClassName
+; 	callfar GetStrLength
+; 	push bc
+; 	ld de, wStringBuffer1
+; 	callfar GetStrLength
+; 	ld a, b
+; 	pop bc
+; 	add b
+; 	cp 9 + 7 ; 宝可梦训练家ABCDEFG
+; 	pop hl
+; 	jr nc, .skip_space
+; 	; ld h, b
+; 	; ld l, c
+; 	ld de, String_Space
+; 	call PlaceString
+; 	ld h, b
+; 	ld l, c
+; 	; push bc
+; 	; callfar Battle_GetTrainerName
+; 	; pop hl
+; 	ld de, wStringBuffer1
+; .skip_space
+; 	jr PlaceCommandCharacter
 
 .rival
 	ld de, wRivalName
@@ -514,7 +518,7 @@ RocketCharText::  db_w "ROCKET@"
 PlacePOKeText::   db_w "POKé@"
 KougekiText::     db_w "こうげき@"
 SixDotsCharText:: db_w "……@"
-EnemyText::       db_w "敌人的@"
+EnemyText::       db_w "敌方@"
 PlacePKMNText::   db_w "<PK><MN>@"
 PlacePOKEText::   db_w "<PO><KE>@"
 String_Space::    db_w " @"
