@@ -70,6 +70,10 @@ Script_BattleRoomClosed:
 ; right after the yesorno in the three link receptionist scripts (64:68A8,
 ; 64:695D, 64:6A42 in the English ROM) to pick the wireless room ID.
 ; Keep these scripts at their original addresses so rooms match official VC.
+; The imported build adds CN_VERSION_STAFF and moves this point back by $6C6.
+	IF DEF(CN_VERSION_STAFF)
+		ds $689D - $61D7 ; $6C6
+	ENDC
 
 LinkReceptionistScript_Trade:
 	checkevent EVENT_GAVE_MYSTERY_EGG_TO_ELM
