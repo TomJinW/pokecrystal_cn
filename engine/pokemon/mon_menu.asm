@@ -171,7 +171,7 @@ SwitchPartyMons:
 	ld a, [wSwitchMon]
 	dec a
 	call AddNTimes
-	ld [hl], "▷"
+	ld [hl], CHARVAL("▷")
 	call WaitBGMap
 	call SetDefaultBGPAndOBP
 	call DelayFrame
@@ -460,7 +460,7 @@ ComposeMailMessage:
 	jr nc, .overflow
 
 	ld a, [hli]
-	cp "@"
+	cp CHARVAL("@")
 	jr nz, .loop
 
 	ld a, b
@@ -468,9 +468,9 @@ ComposeMailMessage:
 	jr nc, .overflow
 
 	ld hl, wTempMailNationality
-	ld a, "C"
+	ld a, CHARVAL("C")
 	ld [hli], a
-	ld a, "N"
+	ld a, CHARVAL("N")
 	ld [hl], a
 .overflow
 
@@ -1298,7 +1298,7 @@ PlaceMoveScreenLeftArrow:
 
 .legal
 	hlcoord 16, 0
-	ld [hl], "◀"
+	ld [hl], CHARVAL("◀")
 	ret
 
 PlaceMoveScreenRightArrow:
@@ -1329,5 +1329,5 @@ PlaceMoveScreenRightArrow:
 
 .legal
 	hlcoord 18, 0
-	ld [hl], "▶"
+	ld [hl], CHARVAL("▶")
 	ret

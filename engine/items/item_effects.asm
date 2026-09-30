@@ -802,7 +802,7 @@ HeavyBallMultiplier:
 	call HeavyBall_GetDexEntryBank
 	call GetFarByte
 	inc hl
-	cp "@"
+	cp CHARVAL("@")
 	jr nz, .SkipText
 
 	call HeavyBall_GetDexEntryBank
@@ -1767,7 +1767,7 @@ ItemActionTextWaitButton:
 	ldh [hBGMapMode], a
 	hlcoord 0, 0
 	ld bc, wTilemapEnd - wTilemap
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call ByteFill
 	ld a, [wPartyMenuActionText]
 	call ItemActionText

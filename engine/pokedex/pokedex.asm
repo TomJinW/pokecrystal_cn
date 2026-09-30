@@ -901,7 +901,7 @@ Pokedex_UnownModeHandleDPadInput:
 	ret
 
 Pokedex_UnownModeEraseCursor:
-	ld c, " "
+	ld c, CHARVAL(" ")
 	jr Pokedex_UnownModeUpdateCursorGfx
 
 Pokedex_UnownModePlaceCursor:
@@ -1169,7 +1169,7 @@ Pokedex_DrawDexEntryScreenBG:
 	hlcoord 19, 0
 	ld [hl], $34
 	hlcoord 19, 1
-	ld a, " "
+	ld a, CHARVAL(" ")
 	ld b, 15
 	call Pokedex_FillColumn
 	ld [hl], $39
@@ -1179,7 +1179,7 @@ Pokedex_DrawDexEntryScreenBG:
 	call ByteFill
 	hlcoord 1, 17
 	ld bc, 18
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call ByteFill
 	hlcoord 9, 6
 	ld de, .Height
@@ -1361,7 +1361,7 @@ Pokedex_PlaceSearchResultsTypeStrings:
 	; hlcoord 2, 15
 	; call Pokedex_PlaceTypeString
 	; hlcoord 1, 15
-	ld [hl], "/"
+	ld [hl], CHARVAL("/")
 	inc hl
 	call Pokedex_PlaceTypeString
 .done
@@ -1549,7 +1549,7 @@ Pokedex_PrintListing:
 	add a
 	inc a
 	ld b, a
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call Pokedex_FillBox
 
 ; Load de with wPokedexOrder + [wDexListingScrollOffset]
@@ -1992,7 +1992,7 @@ Pokedex_PlaceSearchScreenTypeStrings:
 	ldh [hBGMapMode], a
 	hlcoord 11, 3
 	lb bc, 4, 5
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call Pokedex_FillBox
 	ld a, [wDexSearchMonType1]
 	hlcoord 11, 4
@@ -2382,7 +2382,7 @@ Pokedex_MoveArrowCursor:
 	and a
 	jr z, .no_action
 	call Pokedex_GetArrowCursorPos
-	ld [hl], " "
+	ld [hl], CHARVAL(" ")
 	ld hl, wDexArrowCursorPosIndex
 	dec [hl]
 	jr .update_cursor_pos
@@ -2392,13 +2392,13 @@ Pokedex_MoveArrowCursor:
 	cp c
 	jr nc, .no_action
 	call Pokedex_GetArrowCursorPos
-	ld [hl], " "
+	ld [hl], CHARVAL(" ")
 	ld hl, wDexArrowCursorPosIndex
 	inc [hl]
 
 .update_cursor_pos
 	call Pokedex_GetArrowCursorPos
-	ld [hl], "▶"
+	ld [hl], CHARVAL("▶")
 	ld a, 12
 	ld [wDexArrowCursorDelayCounter], a
 	xor a
@@ -2412,7 +2412,7 @@ Pokedex_MoveArrowCursor:
 
 .select
 	call Pokedex_GetArrowCursorPos
-	ld [hl], " "
+	ld [hl], CHARVAL(" ")
 	ld a, [wDexArrowCursorPosIndex]
 	cp c
 	jr c, .update
@@ -2440,12 +2440,12 @@ Pokedex_BlinkArrowCursor:
 	and $8
 	jr z, .blink_on
 	call Pokedex_GetArrowCursorPos
-	ld [hl], " "
+	ld [hl], CHARVAL(" ")
 	ret
 
 .blink_on
 	call Pokedex_GetArrowCursorPos
-	ld [hl], "▶"
+	ld [hl], CHARVAL("▶")
 	ret
 
 Pokedex_ArrowCursorDelay:

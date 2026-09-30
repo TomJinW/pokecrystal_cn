@@ -139,7 +139,7 @@ PlaceString_GB:
 
 PlaceNextChar_GB:
 	ld a, [de]
-	cp "@"
+	cp CHARVAL("@")
 	jr nz, CheckDict_GB
 	ld b, h
 	ld c, l
@@ -151,7 +151,7 @@ NextChar_GB:
 	jr PlaceNextChar_GB
 	
 CheckDict_GB:
-	cp "<NEXT>"
+	cp CHARVAL("<NEXT>")
 	jr z, NextLineChar_GB
 	push hl
 	ld hl, wDFSCode

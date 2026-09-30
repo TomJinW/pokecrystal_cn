@@ -146,7 +146,7 @@ GetCaughtName:
 	ret
 
 GetCaughtLevel:
-	ld a, "@"
+	ld a, CHARVAL("@")
 	ld hl, wSeerCaughtLevelString
 	ld bc, 5
 	call ByteFill
@@ -266,7 +266,7 @@ GetCaughtOT:
 
 .got_grammar
 	ld de, wSeerOTGrammar
-	ld a, "@"
+	ld a, CHARVAL("@")
 	ld [de], a
 	ret
 

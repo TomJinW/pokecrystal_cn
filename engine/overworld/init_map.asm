@@ -85,7 +85,7 @@ HDMATransfer_FillBGMap0WithBlack:
 	ld a, BANK(wDecompressScratch)
 	ldh [rSVBK], a
 
-	ld a, "■"
+	ld a, CHARVAL("■")
 	ld hl, wDecompressScratch
 	ld bc, wScratchAttrmap - wDecompressScratch
 	call ByteFill

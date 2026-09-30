@@ -1,6 +1,6 @@
 ClearBox::
 ; Fill a c*b box at hl with blank tiles.
-	ld a, " "
+	ld a, CHARVAL(" ")
 	; fallthrough
 
 FillBoxWithByte::
@@ -24,7 +24,7 @@ ClearTilemap::
 ; Fill wTilemap with blank tiles.
 
 	hlcoord 0, 0
-	ld a, " "
+	ld a, CHARVAL(" ")
 	ld bc, wTilemapEnd - wTilemap
 	call ByteFill
 
@@ -88,7 +88,7 @@ Textbox::
 TextboxBorder::
 	; Top
 	push hl
-	ld a, "┌"
+	ld a, CHARVAL("┌")
 	ld [hli], a
 	inc a ; "─"
 	call .PlaceChars
@@ -101,11 +101,11 @@ TextboxBorder::
 	add hl, de
 .row
 	push hl
-	ld a, "│"
+	ld a, CHARVAL("│")
 	ld [hli], a
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call .PlaceChars
-	ld [hl], "│"
+	ld [hl], CHARVAL("│")
 	pop hl
 
 	ld de, SCREEN_WIDTH
@@ -114,11 +114,11 @@ TextboxBorder::
 	jr nz, .row
 
 	; Bottom
-	ld a, "└"
+	ld a, CHARVAL("└")
 	ld [hli], a
-	ld a, "─"
+	ld a, CHARVAL("─")
 	call .PlaceChars
-	ld [hl], "┘"
+	ld [hl], CHARVAL("┘")
 
 	ret
 
@@ -245,7 +245,7 @@ PlaceString::
 
 PlaceNextChar::
 	ld a, [de]
-	cp "@"
+	cp CHARVAL("@")
 	jr nz, CheckDict
 	ld b, h
 	ld c, l
@@ -264,17 +264,17 @@ NextChar::
 CheckDict::
 MACRO dict
 	assert CHARLEN(\1) == 1
-	if \1 == 0
+	if CHARVAL(\1) == 0
 		and a
 	else
-		cp \1
+		cp CHARVAL(\1)
 	endc
 	if ISCONST(\2)
 		; Replace a character with another one
 		jr nz, .not\@
 		ld a, \2
 	.not\@:
-	elif !STRCMP(STRSUB("\2", 1, 1), ".")
+	elif !STRCMP(STRSLICE("\2", 0, 1), ".")
 		; Locals can use a short jump
 		jr z, \2
 	else
@@ -285,7 +285,7 @@ ENDM
 	dict "<LINE>",    LineChar
 	dict "<NEXT>",    NextLineChar
 	dict "<CR>",      CarriageReturnChar
-	dict "<NULL>",    "?" ; NullChar
+	dict "<NULL>",    CHARVAL("?") ; NullChar
 	dict "<SCROLL>",  _ContTextNoPause
 	dict "<_CONT>",   _ContText
 	dict "<PARA>",    Paragraph
@@ -655,7 +655,7 @@ ContText::
 PlaceDexEnd::
 ; Ends a Pokédex entry in Gen 1.
 ; Dex entries are now regular strings.
-	ld [hl], "."
+	ld [hl], CHARVAL(".")
 	pop hl
 	ret
 
@@ -688,7 +688,7 @@ DoneText::
 	text_end
 
 NullChar::
-	ld a, "?"
+	ld a, CHARVAL("?")
 	ld [hli], a
 	call PrintLetterDelay
 	jp NextChar
@@ -715,7 +715,7 @@ Diacritic::
 	ret
 
 LoadBlinkingCursor::
-	ld a, "▼"
+	ld a, CHARVAL("▼")
 	ldcoord_a 18, 17
 	ret
 
@@ -1052,7 +1052,7 @@ TextCommand_DOTS::
 
 .loop
 	push de
-	ld a, "…"
+	ld a, CHARVAL("…")
 	ld [hli], a
 	call GetJoypad
 	ldh a, [hJoyDown]

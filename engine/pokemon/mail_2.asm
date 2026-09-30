@@ -717,7 +717,7 @@ MailGFX_PlaceMessage:
 	ld de, wMonOrItemNameBuffer
 	ld bc, NAME_LENGTH - 1
 	call CopyBytes
-	ld a, "@"
+	ld a, CHARVAL("@")
 	ld [wTempMailAuthor], a
 	ld [wMonOrItemNameBuffer + NAME_LENGTH - 1], a
 	ld a, DFS_VRAM_LIMIT_VRAM0
@@ -759,13 +759,13 @@ MailGFX_PlaceMessage:
 	push hl
 .chiPlaceNextchar
 	ld a, [de]
-	cp "@"
+	cp CHARVAL("@")
 	jr nz, .chiCheckDict
 	pop hl
 	ret
 .chiCheckDict
 	inc de
-	cp "<NEXT>"
+	cp CHARVAL("<NEXT>")
 	jr z, .chiNextLineChar
 	push hl
 	ld hl, wDFSCode
@@ -779,14 +779,14 @@ MailGFX_PlaceMessage:
 	jr nz, .doublechar
 .singlechar
 	ld [hli], a
-	ld [hl], "@"
+	ld [hl], CHARVAL("@")
 	jr .setchar
 .doublechar
 	ld [hli], a
 	ld a, [de]
 	inc de
 	ld [hli], a
-	ld [hl], "@"
+	ld [hl], CHARVAL("@")
 .setchar
 	pop hl
 	push de
@@ -802,13 +802,13 @@ MailGFX_PlaceMessage:
 	push hl
 .eurPlaceNextchar
 	ld a, [de]
-	cp "@"
+	cp CHARVAL("@")
 	jr nz, .eurCheckDict
 	pop hl
 	ret
 .eurCheckDict
 	inc de
-	cp "<NEXT>"
+	cp CHARVAL("<NEXT>")
 	jr z, .eurNextLineChar
 	ld [hli], a
 	jr .eurPlaceNextchar

@@ -165,7 +165,7 @@ PlaceApricornQuantity:
 	call MenuBoxCoord2Tile
 	ld de, 2 * SCREEN_WIDTH + 7
 	add hl, de
-	ld [hl], "×"
+	ld [hl], CHARVAL("×")
 	inc hl
 	ld de, wItemQuantityChange
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 2

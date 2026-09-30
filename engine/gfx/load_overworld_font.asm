@@ -10,7 +10,7 @@ LoadOverworldFont::
 	lb bc, BANK(.OverworldFontGFX), DFS_CODE_END - DFS_CODE_SINGLE_DYN_0_END
 	call Get2bpp
 	ld de, .OverworldFontSpaceGFX
-	ld hl, vTiles2 tile " "
+	ld hl, vTiles2 tile CHARVAL(" ")
 	lb bc, BANK(.OverworldFontSpaceGFX), 1
 	call Get2bpp
 	ret

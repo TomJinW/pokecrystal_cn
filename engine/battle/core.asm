@@ -4765,9 +4765,9 @@ PrintPlayerHUD:
 	; jr c, .got_gender_char
 	ret c
 .place_gender_2
-	ld a, "♂"
+	ld a, CHARVAL("♂")
 	jr nz, .got_gender_char
-	ld a, "♀"
+	ld a, CHARVAL("♀")
 .got_gender_char
 	ld [hli], a
 	ret
@@ -4897,9 +4897,9 @@ DrawEnemyHUD:
 	; jr c, .got_gender
 	ret c
 .place_gender_2
-	ld a, "♂"
+	ld a, CHARVAL("♂")
 	jr nz, .got_gender
-	ld a, "♀"
+	ld a, CHARVAL("♀")
 .got_gender
 	ld [hli], a
 	ret
@@ -5601,7 +5601,7 @@ MoveSelectionScreen:
 	ld bc, SCREEN_WIDTH * 2
 	dec a
 	call AddNTimes
-	ld [hl], "▷"
+	ld [hl], CHARVAL("▷")
 
 .interpret_joypad
 	ld a, $1
@@ -5852,7 +5852,7 @@ MoveInfoBox:
 	call PlaceString
 
 	hlcoord 13, 16
-	ld [hl], "/"
+	ld [hl], CHARVAL("/")
 
 	callfar UpdateMoveData
 	ld a, [wPlayerMoveStruct + MOVE_ANIM]
@@ -5882,7 +5882,7 @@ MoveInfoBox:
 	pop hl
 	inc hl
 	inc hl
-	ld [hl], "/"
+	ld [hl], CHARVAL("/")
 	inc hl
 	ld de, wNamedObjectIndex
 	lb bc, 1, 2
@@ -8660,7 +8660,7 @@ ReadAndPrintLinkBattleRecord:
 	ld de, wLinkBattleRecordName
 	ld bc, NAME_LENGTH - 1
 	call CopyBytes
-	ld a, "@"
+	ld a, CHARVAL("@")
 	ld [de], a
 	inc de ; wLinkBattleRecordWins
 	ld bc, 6
@@ -8770,7 +8770,7 @@ ReadAndPrintLinkBattleRecord:
 	call PrintNum
 	ret
 .PrintZero
-	ld a, "0"
+	ld a, CHARVAL("0")
 	ld [hli], a
 	ret
 
@@ -9148,7 +9148,7 @@ InitBattleDisplay:
 
 	ld hl, wDecompressScratch
 	ld bc, BG_MAP_WIDTH * BG_MAP_HEIGHT
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call ByteFill
 
 	ld de, wDecompressScratch

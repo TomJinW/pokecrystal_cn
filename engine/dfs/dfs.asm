@@ -287,12 +287,12 @@ _TextScroll::
 	ld bc, TEXTBOX_WIDTH * 3 - 1
 	call CopyBytes
 	hlcoord TEXTBOX_INNERX - 1, TEXTBOX_INNERY + 2
-	ld a, "│"
+	ld a, CHARVAL("│")
 	ld [hli], a
 	ld bc, TEXTBOX_INNERW
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call ByteFill
-	ld [hl], "│"
+	ld [hl], CHARVAL("│")
 	hlcoord TEXTBOX_INNERX - 1, TEXTBOX_INNERY + 2, wAttrmap
 	ld bc, TEXTBOX_INNERW + 2
 	call ClearVramNo
@@ -625,7 +625,7 @@ _dfsUnion::
 	cp a, DFS_CODE_CONTRL_2
 	jr nc, StaticSingleCode
 	ld a, [hli]
-	cp "@"
+	cp CHARVAL("@")
 	jr z, StaticSingleCode
 
 	ld a, [wDFSCombineCode]
@@ -641,7 +641,7 @@ _dfsUnion::
 	ld a, [hli]
 	ld b, a
 	ld a, [hl]
-	cp "@"
+	cp CHARVAL("@")
 	jr z, DoubleCode
 	ld a, b
 
@@ -1535,7 +1535,7 @@ dfsFirstCharRightAlign::
 	ld h, d
 	ld l, e
 	ld a, c
-	cp "@" ; terminator
+	cp CHARVAL("@") ; terminator
 	jr z, .singlechar ; .done
 	and a
 	jr z, .singlechar

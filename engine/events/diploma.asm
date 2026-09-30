@@ -63,7 +63,7 @@ PrintDiplomaPage2:
 	ld [wDFSVramLimit], a
 	hlcoord 0, 0
 	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call ByteFill
 	ld hl, DiplomaPage2Tilemap
 	decoord 0, 0

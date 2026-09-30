@@ -1,16 +1,16 @@
 MACRO unownwall
 	for n, CHARLEN(\1)
-		DEF x = CHARSUB(\1, n + 1)
-		if x == "-"
+		DEF x = CHARVAL(STRCHAR(\1, n))
+		if x == CHARVAL("-")
 			db $64
-		elif x >= "Y"
-			db 2 * (x - "Y") + $60
-		elif x >= "Q"
-			db 2 * (x - "Q") + $40
-		elif x >= "I"
-			db 2 * (x - "I") + $20
+		elif x >= CHARVAL("Y")
+			db 2 * (x - CHARVAL("Y")) + $60
+		elif x >= CHARVAL("Q")
+			db 2 * (x - CHARVAL("Q")) + $40
+		elif x >= CHARVAL("I")
+			db 2 * (x - CHARVAL("I")) + $20
 		else
-			db 2 * (x - "A")
+			db 2 * (x - CHARVAL("A"))
 		endc
 	endr
 	db -1 ; end

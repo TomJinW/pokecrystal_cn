@@ -7,7 +7,7 @@ InitDisplayForHallOfFame:
 	call LoadFontsBattleExtra
 	hlbgcoord 0, 0
 	ld bc, vBGMap1 - vBGMap0
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call ByteFill
 	hlcoord 0, 0, wAttrmap
 	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
@@ -36,7 +36,7 @@ InitDisplayForRedCredits:
 	call LoadFontsBattleExtra
 	hlbgcoord 0, 0
 	ld bc, vBGMap1 - vBGMap0
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call ByteFill
 	hlcoord 0, 0, wAttrmap
 	ld bc, SCREEN_WIDTH * SCREEN_HEIGHT
@@ -66,7 +66,7 @@ ResetDisplayBetweenHallOfFameMons:
 	ldh [rSVBK], a
 	ld hl, wDecompressScratch
 	ld bc, wScratchAttrmap - wDecompressScratch
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call ByteFill
 	hlbgcoord 0, 0
 	ld de, wDecompressScratch

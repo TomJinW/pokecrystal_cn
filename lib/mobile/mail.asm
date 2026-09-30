@@ -495,17 +495,17 @@ Function1143f3:
 	jp z, .asm_1144c2
 	inc e
 	call z, Function1144c8
-	cp "\r"
+	cp CHARVAL("\r")
 	jr nz, .asm_11442b
 	ld a, [de]
 	inc e
 	call z, Function1144c8
-	cp "\n"
+	cp CHARVAL("\n")
 	jr nz, .asm_11442b
 	ld a, [de]
-	cp "."
+	cp CHARVAL(".")
 	jr z, .asm_1144ae
-	cp "\r"
+	cp CHARVAL("\r")
 	jr z, .asm_1144b8
 
 .asm_11444a
@@ -516,9 +516,9 @@ Function1143f3:
 	jr z, .asm_1144c2
 	inc e
 	call z, Function1144c8
-	cp "a"
+	cp CHARVAL("a")
 	jr c, .asm_114462
-	cp "z" + 1
+	cp CHARVAL("z") + 1
 	jr nc, .asm_114462
 	sub $20
 
@@ -542,10 +542,10 @@ Function1143f3:
 	jr .asm_11446e
 
 .asm_114476
-	ld a, " "
+	ld a, CHARVAL(" ")
 	cp b
 	jr z, .asm_114481
-	ld a, "\n"
+	ld a, CHARVAL("\n")
 	cp b
 	jr z, .asm_114481
 	dec de
@@ -561,18 +561,18 @@ Function1143f3:
 	inc bc
 	inc e
 	call z, Function1144c8
-	cp "\r"
+	cp CHARVAL("\r")
 	jr nz, .asm_114486
 	ld a, [de]
 	inc bc
 	inc e
 	call z, Function1144c8
-	cp "\n"
+	cp CHARVAL("\n")
 	jr nz, .asm_114486
 	ld a, [de]
-	cp " "
+	cp CHARVAL(" ")
 	jr z, .asm_114486
-	cp "\t"
+	cp CHARVAL("\t")
 	jr z, .asm_114486
 	ld d, h
 	ld e, l
@@ -585,14 +585,14 @@ Function1143f3:
 	inc e
 	call z, Function1144c8
 	ld a, [de]
-	cp "\r"
+	cp CHARVAL("\r")
 	jp nz, .asm_11442b
 
 .asm_1144b8
 	inc e
 	call z, Function1144c8
 	ld a, [de]
-	cp "\n"
+	cp CHARVAL("\n")
 	jp nz, .asm_11442b
 
 .asm_1144c2
@@ -5029,26 +5029,26 @@ endr
 	ret
 
 .decodeBase64Character
-	cp "+"
+	cp CHARVAL("+")
 	jr c, .asm_115d27
 	jr z, .asm_115d2f
-	cp "/"
+	cp CHARVAL("/")
 	jr c, .asm_115d27
 	jr z, .asm_115d32
-	cp "0"
+	cp CHARVAL("0")
 	jr c, .asm_115d27
-	cp "9" + 1
+	cp CHARVAL("9") + 1
 	jr c, .asm_115d35
-	cp "="
+	cp CHARVAL("=")
 	jr c, .asm_115d27
 	jr z, .asm_115d38
-	cp "A"
+	cp CHARVAL("A")
 	jr c, .asm_115d27
-	cp "Z" + 1
+	cp CHARVAL("Z") + 1
 	jr c, .asm_115d4d
-	cp "a"
+	cp CHARVAL("a")
 	jr c, .asm_115d27
-	cp "z" + 1
+	cp CHARVAL("z") + 1
 	jr c, .asm_115d50
 
 .asm_115d27

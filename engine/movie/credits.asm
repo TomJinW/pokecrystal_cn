@@ -245,7 +245,7 @@ ParseCredits:
 	ldh [hBGMapMode], a
 	hlcoord 0, 5
 	ld bc, SCREEN_WIDTH * 12
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call ByteFill
 
 ; Then read the script.
@@ -399,7 +399,7 @@ PlaceString_Credits:
 
 PlaceNextChar_Credits:
 	ld a, [de]
-	cp "@"
+	cp CHARVAL("@")
 	jr nz, CheckDict_Credits
 	ld b, h
 	ld c, l
@@ -411,9 +411,9 @@ NextChar_Credits:
 	jp PlaceNextChar_Credits
 	
 CheckDict_Credits:
-    cp "<NEXT>"
+    cp CHARVAL("<NEXT>")
     jp z, NextLineChar_Credits
-    cp "#"
+    cp CHARVAL("#")
     jp z, PlacePOKe_Credits
     ld [hli], a
     jp NextChar_Credits

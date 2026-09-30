@@ -101,7 +101,7 @@ ReturnShuckie:
 	ld a, [de]
 	cp [hl]
 	jr nz, .DontReturn
-	cp "@"
+	cp CHARVAL("@")
 	jr z, .done
 	inc de
 	inc hl

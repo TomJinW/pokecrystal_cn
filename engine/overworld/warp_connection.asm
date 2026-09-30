@@ -259,7 +259,7 @@ LoadMapTimeOfDay:
 	pop af
 	ldh [rVBK], a
 
-	ld a, "■"
+	ld a, CHARVAL("■")
 	ld bc, vBGMap1 - vBGMap0
 	hlbgcoord 0, 0
 	call ByteFill

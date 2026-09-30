@@ -3,28 +3,28 @@ ParseMailLanguage:
 	ld hl, sPartyMon1MailNationality - sPartyMon1Mail
 	add hl, de
 	ld a, [hli]
-	cp "C"
+	cp CHARVAL("C")
 	jr z, .cnmail
-	cp "E"
+	cp CHARVAL("E")
 	ret nz
 	ld a, [hli]
 	inc c ; MAIL_LANG_FRENCH
-	cp "F"
+	cp CHARVAL("F")
 	ret z
 	inc c ; MAIL_LANG_GERMAN
-	cp "G"
+	cp CHARVAL("G")
 	ret z
 	inc c ; MAIL_LANG_ITALIAN
-	cp "I"
+	cp CHARVAL("I")
 	ret z
 	inc c ; MAIL_LANG_SPANISH
-	cp "S"
+	cp CHARVAL("S")
 	ret z
 	ld c, MAIL_LANG_ENGLISH
 	ret
 .cnmail
 	ld a, [hli]
-	cp "N"
+	cp CHARVAL("N")
 	ret nz
 	ld c, MAIL_LANG_CHINESE
 	ret
@@ -51,13 +51,13 @@ ConvertFrenchGermanMailToEnglish:
 	ld a, [hl]
 	cp $dc ; 's in French/German font
 	jr nz, .check_intermediate_chars
-	ld a, "'s"
+	ld a, CHARVAL("'s")
 	jr .replace
 
 .check_intermediate_chars
-	sub "'s"
+	sub CHARVAL("'s")
 	jr c, .dont_replace
-	cp "'v" - "'s" + 1
+	cp CHARVAL("'v") - CHARVAL("'s") + 1
 	jr nc, .dont_replace
 	add $cd
 
@@ -78,7 +78,7 @@ ConvertEnglishMailToFrenchGerman:
 	ld l, e
 .loop
 	ld a, [hl]
-	cp "'s"
+	cp CHARVAL("'s")
 	jr nz, .check_intermediate_chars
 	ld a, $dc ; 's in French/German font
 	jr .replace
@@ -86,9 +86,9 @@ ConvertEnglishMailToFrenchGerman:
 .check_intermediate_chars
 	sub $cd
 	jr c, .dont_replace
-	cp "'v" - "'s" + 1
+	cp CHARVAL("'v") - CHARVAL("'s") + 1
 	jr nc, .dont_replace
-	add "'s"
+	add CHARVAL("'s")
 
 .replace
 	ld [hl], a

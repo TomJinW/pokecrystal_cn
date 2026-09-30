@@ -210,10 +210,10 @@ RestartClock:
 	decoord 7, 8
 	farcall PrintDayHourMin
 	ld a, [wRestartClockPrevDivision]
-	lb de, " ", " "
+	lb de, CHARVAL(" "), CHARVAL(" ")
 	call .PlaceChars
 	ld a, [wRestartClockCurDivision]
-	lb de, "▲", "▼"
+	lb de, CHARVAL("▲"), CHARVAL("▼")
 	call .PlaceChars
 	ld a, [wRestartClockCurDivision]
 	ld [wRestartClockPrevDivision], a

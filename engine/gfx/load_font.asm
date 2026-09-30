@@ -47,22 +47,22 @@ _LoadStandardFont::
 
 _LoadFontsExtra1::
 	ld de, FontsExtra_SolidBlackGFX
-	ld hl, vTiles2 tile "■" ; $60
+	ld hl, vTiles2 tile CHARVAL("■") ; $60
 	lb bc, BANK(FontsExtra_SolidBlackGFX), 1
 	call Get1bppViaHDMA
 	ld de, PokegearPhoneIconGFX
-	ld hl, vTiles2 tile "☎" ; $62
+	ld hl, vTiles2 tile CHARVAL("☎") ; $62
 	lb bc, BANK(PokegearPhoneIconGFX), 1
 	call Get2bppViaHDMA
 	ld de, FontExtra + 3 tiles ; "<BOLD_D>"
-	ld hl, vTiles2 tile "<BOLD_D>"
+	ld hl, vTiles2 tile CHARVAL("<BOLD_D>")
 	lb bc, BANK(FontExtra), 22 ; "<BOLD_D>" to "ぉ"
 	call Get2bppViaHDMA
 	jr LoadFrame
 
 _LoadFontsExtra2::
 	ld de, FontsExtra2_UpArrowGFX
-	ld hl, vTiles2 tile "▲" ; $61
+	ld hl, vTiles2 tile CHARVAL("▲") ; $61
 	ld b, BANK(FontsExtra2_UpArrowGFX)
 	ld c, 1
 	call Get2bppViaHDMA
@@ -83,10 +83,10 @@ LoadFrame:
 	call AddNTimes
 	ld d, h
 	ld e, l
-	ld hl, vTiles2 tile "┌" ; $79
+	ld hl, vTiles2 tile CHARVAL("┌") ; $79
 	lb bc, BANK(Frames), TEXTBOX_FRAME_TILES ; "┌" to "┘"
 	call Get1bppViaHDMA
-	ld hl, vTiles2 tile " " ; $7f
+	ld hl, vTiles2 tile CHARVAL(" ") ; $7f
 	ld de, TextboxSpaceGFX
 	lb bc, BANK(TextboxSpaceGFX), 1
 	call Get1bppViaHDMA

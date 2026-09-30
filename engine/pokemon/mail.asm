@@ -155,7 +155,7 @@ CheckPokeMail::
 	ld c, a
 	ld a, b
 	call GetFarByte
-	cp "@"
+	cp CHARVAL("@")
 	jr z, .done
 	cp c
 	ld a, POKEMAIL_WRONG_MAIL
@@ -219,10 +219,10 @@ GivePokeMail::
 	; ld bc, NAME_LENGTH - 1
 	ld bc, NAME_LENGTH - 3 ; NAME_LENGTH - 1
 	call CopyBytes
-	ld a, "C"
+	ld a, CHARVAL("C")
 	ld [de], a
 	inc de
-	ld a, "N"
+	ld a, CHARVAL("N")
 	ld [de], a
 	inc de
 	pop af
@@ -361,7 +361,7 @@ MailboxPC_GetMailAuthor:
 	push de
 	ld bc, NAME_LENGTH - 1
 	call CopyBytes
-	ld a, "@"
+	ld a, CHARVAL("@")
 	ld [de], a
 	call CloseSRAM
 	pop de

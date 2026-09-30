@@ -29,9 +29,9 @@ _CheckForBattleTowerRules:
 	ret
 	ENDC
 	ld hl, wStringBuffer2
-	ld [hl], "3"
+	ld [hl], CHARVAL("3")
 	inc hl
-	ld [hl], "@"
+	ld [hl], CHARVAL("@")
 	ld de, .PointerTables
 	call BattleTower_ExecuteJumptable
 	ret z

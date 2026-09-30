@@ -360,7 +360,7 @@ UpdateSpeciesNameIfNotNicknamed:
 	cp [hl]
 	inc hl
 	ret nz
-	cp "@"
+	cp CHARVAL("@")
 	jr nz, .loop
 
 	ld a, [wCurPartyMon]

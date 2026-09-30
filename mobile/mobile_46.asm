@@ -3722,26 +3722,26 @@ pushc
 setcharmap ascii
 
 .decodeBase64Character
-	cp "+"
+	cp CHARVAL("+")
 	jr c, .asm_119c68
 	jr z, .asm_119c80
-	cp "/"
+	cp CHARVAL("/")
 	jr c, .asm_119c68
 	jr z, .asm_119c84
-	cp "0"
+	cp CHARVAL("0")
 	jr c, .asm_119c68
-	cp "9" + 1
+	cp CHARVAL("9") + 1
 	jr c, .asm_119c88
-	cp "="
+	cp CHARVAL("=")
 	jr c, .asm_119c68
 	jr z, .asm_119c8c
-	cp "A"
+	cp CHARVAL("A")
 	jr c, .asm_119c68
-	cp "Z" + 1
+	cp CHARVAL("Z") + 1
 	jr c, .asm_119c8f
-	cp "a"
+	cp CHARVAL("a")
 	jr c, .asm_119c68
-	cp "z" + 1
+	cp CHARVAL("z") + 1
 	jr c, .asm_119c93
 
 popc
@@ -4040,7 +4040,7 @@ Function119e4f:
 	inc de
 pushc
 setcharmap ascii
-	cp "\n"
+	cp CHARVAL("\n")
 popc
 	jr z, .newline
 	cp [hl]
@@ -4068,7 +4068,7 @@ popc
 	inc de
 pushc
 setcharmap ascii
-	cp "\r"
+	cp CHARVAL("\r")
 popc
 	jr z, .finish
 	dec c
@@ -5297,9 +5297,9 @@ Function11a90f:
 
 .normal_text_copy
 	ld a, [hli]
-	cp "@"
+	cp CHARVAL("@")
 	jr z, .asm_11a92c
-	cp "<DONE>"
+	cp CHARVAL("<DONE>")
 	jr z, .asm_11a94f
 	ld [de], a ; 没有带 <DONE> 的汉字编码，因此直接做简易替换
 	inc de
@@ -6096,18 +6096,18 @@ Function11b03d:
 	ld c, $1
 .loop
 	ld a, [hli]
-	cp "♂"
+	cp CHARVAL("♂")
 	jr z, .gender
-	cp "♀"
+	cp CHARVAL("♀")
 	jr z, .gender
-	cp "@"
+	cp CHARVAL("@")
 	jr z, .done
 	inc c
 	jr .loop
 
 .gender
 	dec hl
-	ld a, "@"
+	ld a, CHARVAL("@")
 	ld [hli], a
 
 .done
@@ -7350,7 +7350,7 @@ Function11b7e5:
 	ld de, wOTTrademonOTName
 	ld bc, 5
 	call CopyBytes
-	ld a, "@"
+	ld a, CHARVAL("@")
 	ld [de], a
 	ld a, [wMobileMonID]
 	ld [wOTTrademonID], a
@@ -7600,7 +7600,7 @@ AddMobileMonToParty:
 	ld h, a
 	ld bc, MON_NAME_LENGTH - 1
 	call CopyBytes
-	ld a, "@"
+	ld a, CHARVAL("@")
 	ld [de], a
 
 	ld hl, wPartyMonNicknames
@@ -7619,7 +7619,7 @@ AddMobileMonToParty:
 	ld h, a
 	ld bc, MON_NAME_LENGTH - 1
 	call CopyBytes
-	ld a, "@"
+	ld a, CHARVAL("@")
 	ld [de], a
 
 	ld hl, sPartyMail

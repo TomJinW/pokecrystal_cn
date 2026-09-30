@@ -1,4 +1,4 @@
-DEF PRINTPARTY_HP EQU "◀" ; $71
+DEF PRINTPARTY_HP EQU CHARVAL("◀") ; $71
 
 PrintPage1:
 	farcall dfsClearCache
@@ -105,7 +105,7 @@ PrintPage2:
 	farcall dfsClearCache
 	hlcoord 0, 0, wPrinterTilemapBuffer
 	ld bc, 8 * SCREEN_WIDTH
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call ByteFill
 	hlcoord 0, 0, wPrinterTilemapBuffer
 	ld a, $36
@@ -196,12 +196,12 @@ PrintPartyMonPage1:
 	call Request1bpp
 
 	ld de, GBPrinterLvIcon
-	ld hl, vTiles2 tile "<LV>"
+	ld hl, vTiles2 tile CHARVAL("<LV>")
 	lb bc, BANK(GBPrinterLvIcon), 1
 	call Request1bpp
 
 	ld de, StatsScreenPageTilesGFX + 14 tiles ; shiny icon
-	ld hl, vTiles2 tile "⁂"
+	ld hl, vTiles2 tile CHARVAL("⁂")
 	lb bc, BANK(StatsScreenPageTilesGFX), 1
 	call Get2bpp
 
@@ -258,9 +258,9 @@ PrintPartyMonPage1:
 
 	call PlaceString
 	hlcoord 1, 0
-	ld [hl], "№"
+	ld [hl], CHARVAL("№")
 	inc hl
-	ld [hl], "."
+	ld [hl], CHARVAL(".")
 	inc hl
 	ld de, wNamedObjectIndex
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 3
@@ -446,11 +446,11 @@ PlaceMoveNameString:
 
 PlaceGenderAndShininess:
 	farcall GetGender
-	ld a, " "
+	ld a, CHARVAL(" ")
 	jr c, .got_gender
-	ld a, "♂"
+	ld a, CHARVAL("♂")
 	jr nz, .got_gender
-	ld a, "♀"
+	ld a, CHARVAL("♀")
 
 .got_gender
 	hlcoord 17, 1
@@ -459,7 +459,7 @@ PlaceGenderAndShininess:
 	farcall CheckShininess
 	ret nc
 	hlcoord 18, 1
-	ld [hl], "⁂"
+	ld [hl], CHARVAL("⁂")
 	ret
 
 PrintParty_OTString:

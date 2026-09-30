@@ -817,7 +817,7 @@ PokeAnim_PlaceGraphic:
 	ld c, 7
 	; call ClearBox
 	; ret
-	ld a, " "
+	ld a, CHARVAL(" ")
 .CBrow
 	push bc
 	push hl

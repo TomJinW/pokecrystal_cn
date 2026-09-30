@@ -1717,7 +1717,7 @@ GivePoke::
 	ld [de], a
 	inc hl
 	inc de
-	cp "@"
+	cp CHARVAL("@")
 	jr nz, .otnameloop
 	ld a, [wScriptBank]
 	call GetFarByte
@@ -1744,7 +1744,7 @@ GivePoke::
 	ld [de], a
 	inc hl
 	inc de
-	cp "@"
+	cp CHARVAL("@")
 	jr nz, .loop
 	ld a, [wScriptBank]
 	call GetFarByte

@@ -427,9 +427,9 @@ StatsScreen_InitLeftHalf:
 	ld [wTextDecimalByte], a
 	ld [wCurSpecies], a
 	hlcoord 1, 0
-	ld [hl], "№"
+	ld [hl], CHARVAL("№")
 	inc hl
-	ld [hl], "."
+	ld [hl], CHARVAL(".")
 	inc hl
 	hlcoord 3, 0
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 3
@@ -457,7 +457,7 @@ StatsScreen_InitLeftHalf:
 	cp a, 8
 	hlcoord 0, 12
 	jr nc, .skipdash
-	ld a, "/"
+	ld a, CHARVAL("/")
 	ld [hli], a
 .skipdash
 	call PlaceString
@@ -490,9 +490,9 @@ StatsScreen_InitLeftHalf:
 	farcall GetGender
 	pop hl
 	ret c
-	ld a, "♂"
+	ld a, CHARVAL("♂")
 	jr nz, .got_gender
-	ld a, "♀"
+	ld a, CHARVAL("♀")
 .got_gender
 	ld [hl], a
 	ret
@@ -658,7 +658,7 @@ StatsScreen_PlaceShinyIcon:
 	farcall CheckShininess
 	ret nc
 	hlcoord 6, 8
-	ld [hl], "⁂"
+	ld [hl], CHARVAL("⁂")
 	ret
 
 StatsScreen_LoadGFX:
@@ -733,7 +733,7 @@ LoadPinkPage:
 	and $f0
 	jr z, .NotImmuneToPkrs
 	hlcoord 19, 9 ;hlcoord 8, 8 ; Pokerus immunity marker location changed
-	ld [hl], "." ; Pokérus immunity dot
+	ld [hl], CHARVAL(".") ; Pokérus immunity dot
 .NotImmuneToPkrs:
 	ld a, [wMonType]
 	cp BOXMON
@@ -880,7 +880,7 @@ LoadGreenPage:
 	hlcoord 18, 3
 	call PlaceString
 	pop hl
-	ld [hl], "@"
+	ld [hl], CHARVAL("@")
 	pop de
 .GPisItem
 	farcall GetStrLength
@@ -985,9 +985,9 @@ LoadBluePage:
 	cp $7f
 	jr z, .done
 	and CAUGHT_GENDER_MASK
-	ld a, "♂"
+	ld a, CHARVAL("♂")
 	jr z, .got_gender
-	ld a, "♀"
+	ld a, CHARVAL("♀")
 .got_gender
 	hlcoord 18, 1
 	ld [hl], a
@@ -1157,7 +1157,7 @@ StatsScreen_LoadTextboxSpaceGFX:
 	ldh [rVBK], a
 	ld de, TextboxSpaceGFX
 	lb bc, BANK(TextboxSpaceGFX), 1
-	ld hl, vTiles2 tile " "
+	ld hl, vTiles2 tile CHARVAL(" ")
 	call Get2bpp
 	pop af
 	ldh [rVBK], a

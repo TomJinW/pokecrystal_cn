@@ -1805,7 +1805,7 @@ LinkTrade_TradeStatsMenu:
 	farcall Link_WaitBGMap
 
 .joy_loop
-	ld a, " "
+	ld a, CHARVAL(" ")
 	ldcoord_a 11, 16
 	ld a, A_BUTTON | B_BUTTON | D_RIGHT
 	ld [wMenuJoypadFilter], a
@@ -1837,7 +1837,7 @@ LinkTrade_TradeStatsMenu:
 	jp LinkTrade_PlayerPartyMenu
 
 .d_right
-	ld a, " "
+	ld a, CHARVAL(" ")
 	ldcoord_a 1, 16
 	ld a, A_BUTTON | B_BUTTON | D_LEFT
 	ld [wMenuJoypadFilter], a
@@ -1878,7 +1878,7 @@ LinkTrade_TradeStatsMenu:
 	; call LinkEngine_FillBox
 	; hlcoord 17, 1
 	; lb bc, 6, 1
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call LinkEngine_FillBox
 	jp LinkTrade_PlayerPartyMenu
 
@@ -1978,7 +1978,7 @@ LinkTradeOTPartymonMenuCheckCancel:
 
 LinkTradePartymonMenuCheckCancel:
 .loop1
-	ld a, "▶"
+	ld a, CHARVAL("▶")
 	ldcoord_a 2, 17
 .loop2
 	call JoyTextDelay
@@ -1988,7 +1988,7 @@ LinkTradePartymonMenuCheckCancel:
 	bit A_BUTTON_F, a
 	jr nz, .a_button
 	push af
-	ld a, " "
+	ld a, CHARVAL(" ")
 	ldcoord_a 2, 17
 	pop af
 	bit D_UP_F, a
@@ -2003,7 +2003,7 @@ LinkTradePartymonMenuCheckCancel:
 	jp LinkTrade_PlayerPartyMenu
 
 .a_button
-	ld a, "▷"
+	ld a, CHARVAL("▷")
 	ldcoord_a 2, 17
 	ld a, $f
 	ld [wPlayerLinkAction], a
@@ -2039,7 +2039,7 @@ GSPlaceTradeScreenFooter: ; unreferenced
 	call ByteFill
 ; Clear out area for cancel string
 	hlcoord 1, 16
-	ld a, " "
+	ld a, CHARVAL(" ")
 	ld bc, SCREEN_WIDTH - 2
 	call ByteFill
 ; Place the string
@@ -2056,7 +2056,7 @@ LinkTradePlaceArrow:
 	hlcoord 11, 3
 	ld bc, SCREEN_WIDTH * 2
 	call AddNTimes
-	ld [hl], "▷"
+	ld [hl], CHARVAL("▷")
 	ret
 
 LinkEngine_FillBox:
