@@ -41,7 +41,7 @@ _DebugRoom:
 .loop
 	ld hl, wTilemap
 	ld bc, wTilemapEnd - wTilemap
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call ByteFill
 	call DebugRoom_PrintStackBottomTop
 	call DebugRoom_PrintWindowStackBottomTop
@@ -430,9 +430,9 @@ DebugRoom_PrintGender:
 	ld a, [sCrystalData + (wPlayerGender - wCrystalData)]
 	call CloseSRAM
 	or a
-	ld a, "♂"
+	ld a, CHARVAL("♂")
 	jr z, .ok
-	ld a, "♀"
+	ld a, CHARVAL("♀")
 .ok
 	hlcoord 16, 1
 	ld [hl], a
@@ -594,7 +594,7 @@ DebugRoom_EditPagedValues:
 	call DebugRoom_InitializePagedValues
 	xor a
 	call DebugRoom_PrintPage
-	ld a, "▶"
+	ld a, CHARVAL("▶")
 	call DebugRoom_ShowHideCursor
 	xor a
 	ldh [hJoyLast], a
@@ -720,7 +720,7 @@ DebugRoom_NextPage:
 	dec a
 	ld [wDebugRoomCurValue], a
 .skip
-	ld a, "▶"
+	ld a, CHARVAL("▶")
 	call DebugRoom_ShowHideCursor
 	ret
 
@@ -742,12 +742,12 @@ DebugRoom_PrevPage:
 	dec a
 	ld [wDebugRoomCurValue], a
 .skip
-	ld a, "▶"
+	ld a, CHARVAL("▶")
 	call DebugRoom_ShowHideCursor
 	ret
 
 DebugRoom_NextPagedValue:
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call DebugRoom_ShowHideCursor
 	ld a, [wDebugRoomCurPage]
 	call DebugRoom_GetNthPagePointer
@@ -761,12 +761,12 @@ DebugRoom_NextPagedValue:
 
 DebugRoom_UpdateValueCursor:
 	ld [wDebugRoomCurValue], a
-	ld a, "▶"
+	ld a, CHARVAL("▶")
 	call DebugRoom_ShowHideCursor
 	ret
 
 DebugRoom_PrevPagedValue:
-	ld a, " "
+	ld a, CHARVAL(" ")
 	call DebugRoom_ShowHideCursor
 	ld a, [wDebugRoomCurValue]
 	or a ; pre-decremented value > 0?
@@ -890,7 +890,7 @@ DebugRoom_InitializePagedValues:
 DebugRoom_PrintPage:
 	push af
 	hlcoord 10, 17
-	add "1"
+	add CHARVAL("1")
 	ld [hl], a
 	hlcoord 1, 1
 	lb bc, SCREEN_HEIGHT - 2, SCREEN_WIDTH - 2
@@ -981,7 +981,7 @@ DebugRoom_PrintPagedValue:
 .hex
 	ld c, 1
 	call PrintHexNumber
-	ld [hl], "<BOLD_H>" ; "H"
+	ld [hl], CHARVAL("<BOLD_H>") ; "H"
 	inc hl
 .printed
 	ld bc, -13 ; 6
@@ -1410,12 +1410,12 @@ DebugRoomMenu_RTCEdit_UpdateClock:
 	ld de, wDebugRoomRTCCurHour
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 2
 	call PrintNum
-	ld [hl], "<COLON>" ; ":"
+	ld [hl], CHARVAL("<COLON>") ; ":"
 	inc hl
 	ld de, wDebugRoomRTCCurMin
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 2
 	call PrintNum
-	ld [hl], "<COLON>" ; ":"
+	ld [hl], CHARVAL("<COLON>") ; ":"
 	inc hl
 	ld de, wDebugRoomRTCCurSec
 	lb bc, PRINTNUM_LEADINGZEROS | 1, 2
@@ -1602,7 +1602,7 @@ ComputeROMChecksum:
 	hlcoord 16, 16
 	ld c, 1
 	call PrintHexNumber
-	ld [hl], "<BOLD_H>" ; "h"
+	ld [hl], CHARVAL("<BOLD_H>") ; "h"
 	pop de
 	pop bc
 	call ComputeROMXChecksum
@@ -1670,7 +1670,7 @@ DebugRoomMenu_ROMChecksum:
 	ld de, wDebugRoomROMChecksum
 	ld c, 2
 	call PrintHexNumber
-	ld [hl], "<BOLD_H>" ; "h"
+	ld [hl], CHARVAL("<BOLD_H>") ; "h"
 	call DebugRoom_JoyWaitABSelect
 	call CloseWindow
 	ret
@@ -1710,7 +1710,7 @@ DebugRoomMenu_BTBugPoke:
 	ld de, sIsBugMon
 	ld c, 1
 	call PrintHexNumber
-	ld [hl], "<BOLD_H>" ; "h"
+	ld [hl], CHARVAL("<BOLD_H>") ; "h"
 	call YesNoBox
 	jr c, .done
 	xor a
@@ -1742,7 +1742,7 @@ PrintHexNumber:
 	call .PrintDigit
 	; ld [hli], a
 	ld [wDFSCode], a
-	ld a, "@"
+	ld a, CHARVAL("@")
 	ld [wDFSCode + 1], a
 	call PlaceDFSChar
 	ld a, [de]
@@ -1750,7 +1750,7 @@ PrintHexNumber:
 	call .PrintDigit
 	; ld [hli], a
 	ld [wDFSCode], a
-	ld a, "@"
+	ld a, CHARVAL("@")
 	ld [wDFSCode + 1], a
 	call PlaceDFSChar
 	inc de
