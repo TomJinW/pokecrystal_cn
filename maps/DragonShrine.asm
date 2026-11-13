@@ -298,8 +298,8 @@ DragonShrineQuestion3_MenuHeader:
 .MenuData:
 	db STATICMENU_CURSOR | STATICMENU_DISABLE_B ; flags
 	db 3 ; items
-	db_w "强大的@"
 	db_w "弱小的@"
+	db_w "强大的@"
 	db_w "任何人@"
 
 DragonShrineQuestion4_MenuHeader:

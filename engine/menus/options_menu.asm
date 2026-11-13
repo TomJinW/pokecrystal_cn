@@ -140,7 +140,7 @@ StringOptions:
 	next "打印浓度"
 	next "菜单说明"
 	next "边框       类型"
-	next $69, "150      结束@" ; v150
+	next $69, "151      结束@" ; v151
 
 GetOptionPointer:
 	jumptable .Pointers, wJumptableIndex

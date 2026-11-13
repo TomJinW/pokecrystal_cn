@@ -16,3 +16,16 @@ NPCTrades:
 	npctrade TRADE_DIALOGSET_GIRL,      CHANSEY,    AERODACTYL, "飞翼@@@@@@@", $96, $66, GOLD_BERRY,   26491, "电磁@@@@@@@", TRADE_GENDER_EITHER
 	npctrade TRADE_DIALOGSET_COLLECTOR, DUGTRIO,    MAGNETON,   "铁墩@@@@@@@", $96, $66, METAL_COAT,   50082, "森尾@@@@@@@", TRADE_GENDER_EITHER
 	assert_table_length NUM_NPC_TRADES
+
+NPCTradeNamesENG:
+; nickname, OT name
+; entries correspond to NPCTRADE_* constants
+	table_width 2 * NAME_LENGTH, NPCTradeNamesENG
+	db_w "MUSCLE@@@@@", "MIKE@@@@@@@"
+	db_w "ROCKY@@@@@@", "KYLE@@@@@@@"
+	db_w "VOLTY@@@@@@", "TIM@@@@@@@@"
+	db_w "DORIS@@@@@@", "EMY@@@@@@@@"
+	db_w "PAUL@@@@@@@", "CHRIS@@@@@@"
+	db_w "AEROY@@@@@@", "KIM@@@@@@@@"
+	db_w "MAGGIE@@@@@", "FOREST@@@@@"
+	assert_table_length NUM_NPC_TRADES

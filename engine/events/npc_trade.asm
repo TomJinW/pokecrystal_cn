@@ -25,7 +25,11 @@ NPCTrade::
 	ld a, [wCurPartySpecies]
 	cp [hl]
 	ld a, TRADE_DIALOG_WRONG
+	IF DEF(_DEBUG)
+	jr z, .done
+	ELSE
 	jr nz, .done
+	ENDC
 
 	call CheckTradeGender
 	ld a, TRADE_DIALOG_WRONG
@@ -197,7 +201,7 @@ DoNPCTrade:
 	farcall SetGiftPartyMonCaughtData
 
 	ld e, NPCTRADE_NICKNAME
-	call GetTradeAttr
+	call GetTradeNameAttr
 	ld de, wOTTrademonNickname
 	call CopyTradeName
 
@@ -208,7 +212,7 @@ DoNPCTrade:
 	call CopyTradeName
 
 	ld e, NPCTRADE_OT_NAME
-	call GetTradeAttr
+	call GetTradeNameAttr
 	push hl
 	ld de, wOTTrademonOTName
 	call CopyTradeName
@@ -285,6 +289,23 @@ GetTradeAttr:
 	add hl, de
 	pop de
 	add hl, de
+	ret
+
+GetTradeNameAttr:
+	ld a, [wEngPKMNNameMark]
+	cp 1
+	jp nz, GetTradeAttr
+
+	ld a, [wJumptableIndex]
+	and $f
+	ld hl, NPCTradeNamesENG
+	ld bc, 2 * NAME_LENGTH
+	call AddNTimes
+	ld a, e
+	cp NPCTRADE_OT_NAME
+	ret nz
+	ld bc, NAME_LENGTH
+	add hl, bc
 	ret
 
 Trade_GetAttributeOfCurrentPartymon:
